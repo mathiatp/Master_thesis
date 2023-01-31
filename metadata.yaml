@@ -1,0 +1,1459 @@
+rosbag2_bagfile_information:
+  version: 5
+  storage_identifier: sqlite3
+  duration:
+    nanoseconds: 299999987431
+  starting_time:
+    nanoseconds_since_epoch: 1665331074397524133
+  message_count: 30077977
+  topics_with_message_count:
+    - topic_metadata:
+        name: /initialpose
+        type: geometry_msgs/msg/PoseWithCovarianceStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /dp_interface/condition_monitor/controller_health
+        type: ros_zb_interfaces/msg/HealthStatus
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 0\n    nsec: 240000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142986
+    - topic_metadata:
+        name: /tf_static
+        type: tf2_msgs/msg/TFMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 3
+    - topic_metadata:
+        name: /mt_interface/tau_manual
+        type: geometry_msgs/msg/WrenchStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 124312
+    - topic_metadata:
+        name: /rgb_cam_as_a/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142980
+    - topic_metadata:
+        name: /crossing_introspection/smach/container_structure
+        type: smach_msgs/msg/SmachContainerStructure
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28598
+    - topic_metadata:
+        name: /goal_pose
+        type: geometry_msgs/msg/PoseStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /mt_interface/gain_settings
+        type: ros_mt_interface/msg/GainSettings
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /crossing_behavior/init_crossing
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2
+    - topic_metadata:
+        name: /autotrack_behavior/autotrack/_action/status
+        type: action_msgs/msg/GoalStatusArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /mt_interface/position_setpoint
+        type: ros_mt_interface/msg/PositionSetpoint
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /lidar_aft/points
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285982
+    - topic_metadata:
+        name: /reference_generator/pose
+        type: geometry_msgs/msg/PoseStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 66
+    - topic_metadata:
+        name: /navigation/health_status
+        type: ros_zb_interfaces/msg/HealthStatus
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 0\n    nsec: 150000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285989
+    - topic_metadata:
+        name: /ravnkloa_lidar_base_map
+        type: nav_msgs/msg/OccupancyGrid
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 1
+    - topic_metadata:
+        name: /autonomy_idle_behavior/heartbeat
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 0\n    nsec: 500000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 71497
+    - topic_metadata:
+        name: /reference_generator/dp_reference
+        type: ros_zb_interfaces/msg/DPReference
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285980
+    - topic_metadata:
+        name: /radar/detections
+        type: ros_zb_interfaces/msg/ClusterArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 10884
+    - topic_metadata:
+        name: /targets_as_triangles_markers_topic
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 125270
+    - topic_metadata:
+        name: /sp_vp/vis/obstacles
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 4750
+    - topic_metadata:
+        name: /ravnkloa_radar_base_map
+        type: nav_msgs/msg/OccupancyGrid
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 1
+    - topic_metadata:
+        name: /rgb_cam_ap_a/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /rgb_cam_fs_f/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142984
+    - topic_metadata:
+        name: /lidar_fore/ouster_driver/transition_event
+        type: lifecycle_msgs/msg/TransitionEvent
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /sitaw/estimates
+        type: ros_zb_interfaces/msg/EstimateArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 125288
+    - topic_metadata:
+        name: /rgb_cam_fs_s/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /senti_parser/SentiNavigationFull
+        type: ros_zb_interfaces/msg/NavigationFull
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 558032
+    - topic_metadata:
+        name: /senti_parser/SentiGNSSNavPvt
+        type: ros_sentipack_driver/msg/SentiGNSSNavPvt
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28597
+    - topic_metadata:
+        name: /mt_interface/status_refsys
+        type: ros_mt_interface/msg/RefsysEnableDisable
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /rgb_cam_fp_f/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /senti_parser/SentiGNSSDop
+        type: ros_sentipack_driver/msg/SentiGNSSDop
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /senti_parser/SentiIMU
+        type: ros_sentipack_driver/msg/SentiIMU
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 942343
+    - topic_metadata:
+        name: /tf
+        type: tf2_msgs/msg/TFMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 552856
+    - topic_metadata:
+        name: /senti_parser/SentiInputCapture
+        type: ros_sentipack_driver/msg/SentiInputCapture
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /io_machine/hatch_driver/hatch_statuses
+        type: ros_zb_interfaces/msg/HatchStatuses
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 201594
+    - topic_metadata:
+        name: /events/write_split
+        type: rosbag2_interfaces/msg/WriteSplitEvent
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 95
+    - topic_metadata:
+        name: /mt_interface/joystick_command
+        type: ros_mt_interface/msg/JoystickCommand
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /radar/detections_as_markers
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 21768
+    - topic_metadata:
+        name: /radar/points
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 10884
+    - topic_metadata:
+        name: /senti_parser/SentiGNSSRfiStatus
+        type: ros_sentipack_driver/msg/SentiGNSSRfiStatus
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /parameter_events
+        type: rcl_interfaces/msg/ParameterEvent
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 1
+    - topic_metadata:
+        name: /crossing_introspection/smach/container_status
+        type: smach_msgs/msg/SmachContainerStatus
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 29073
+    - topic_metadata:
+        name: /rosout
+        type: rcl_interfaces/msg/Log
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 10\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 10\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 116627
+    - topic_metadata:
+        name: /navigation/twist_body
+        type: geometry_msgs/msg/TwistStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 557995
+    - topic_metadata:
+        name: /radar/points_free
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 10884
+    - topic_metadata:
+        name: /supervisory/disable_autonomy
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /bms/status
+        type: ros_mt_interface/msg/BMSStatus
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 22812
+    - topic_metadata:
+        name: /lidar_fore/imu
+        type: sensor_msgs/msg/Imu
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2859412
+    - topic_metadata:
+        name: /senti_parser/SentiTwist
+        type: geometry_msgs/msg/TwistStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2790140
+    - topic_metadata:
+        name: /sitaw/fov_marker
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 125288
+    - topic_metadata:
+        name: /io_machine/io_driver/di
+        type: ros_io_machine_driver/msg/WagoDI
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 201636
+    - topic_metadata:
+        name: /crossing_behavior/stop_crossing
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 3
+    - topic_metadata:
+        name: /reference_generator/autotrack_path
+        type: ros_zb_interfaces/msg/WaypointList
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /lidar_fore/detections_as_markers
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 114386
+    - topic_metadata:
+        name: /sitaw/tracks
+        type: ros_zb_interfaces/msg/TrackArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 125288
+    - topic_metadata:
+        name: /autonomy_idle_behavior/autonomy_idle/_action/status
+        type: action_msgs/msg/GoalStatusArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 12
+    - topic_metadata:
+        name: /clicked_point
+        type: geometry_msgs/msg/PointStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /supervisory/supervisory_state
+        type: std_msgs/msg/String
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28615
+    - topic_metadata:
+        name: /mt_interface/joystick_settings
+        type: ros_mt_interface/msg/JoystickSettings
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /senti_parser/SentiINSStates
+        type: ros_sentipack_driver/msg/SentiINSStates
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2790099
+    - topic_metadata:
+        name: /crossing_behavior/quay_vis
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 4
+    - topic_metadata:
+        name: /senti_parser/SentiPose
+        type: geometry_msgs/msg/PoseStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2790086
+    - topic_metadata:
+        name: /rgb_cam_fp_f/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /mt_interface/autonomy_enabled
+        type: std_msgs/msg/Bool
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28547
+    - topic_metadata:
+        name: /rgb_cam_as_a/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /autonomy_idle_behavior/autonomy_idle/_action/feedback
+        type: ros_supervisory_interfaces/action/AutonomyIdleBehavior_FeedbackMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /io_machine/hatch_driver/hatch_command
+        type: ros_zb_interfaces/msg/HatchCommand
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 131
+    - topic_metadata:
+        name: /io_machine/io_driver/do
+        type: ros_io_machine_driver/msg/WagoDO
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 57194
+    - topic_metadata:
+        name: /mt_interface/vessel_data
+        type: ros_mt_interface/msg/VesselData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /lidar_aft/imu
+        type: sensor_msgs/msg/Imu
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2859410
+    - topic_metadata:
+        name: /rgb_cam_as_a/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /rgb_cam_fp_f/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /senti_parser/SentiGNSSRelPos
+        type: ros_sentipack_driver/msg/SentiGNSSRelPos
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /rgb_cam_as_s/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /rgb_cam_as_s/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142985
+    - topic_metadata:
+        name: /rgb_cam_ap_p/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /rgb_cam_ap_a/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /crossing_behavior/status_message
+        type: std_msgs/msg/String
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 49112
+    - topic_metadata:
+        name: /lidar_aft/ouster_driver/transition_event
+        type: lifecycle_msgs/msg/TransitionEvent
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /sp_vp/sp_vp_log
+        type: ros_mpcs_interfaces/msg/SpVpLog
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2592
+    - topic_metadata:
+        name: /rgb_cam_ap_a/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /crossing_behavior/crossing/_action/feedback
+        type: ros_supervisory_interfaces/action/CrossingBehavior_FeedbackMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /senti_parser/SentiTrigger
+        type: ros_sentipack_driver/msg/SentiTrigger
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /mt_interface/dp_class
+        type: ros_mt_interface/msg/DPClass
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /sitaw/tracks_as_markers
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 125270
+    - topic_metadata:
+        name: /rgb_cam_fs_f/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142979
+    - topic_metadata:
+        name: /io_machine/ultrasonic_dist_driver/ultrasonic_dist
+        type: ros_zb_interfaces/msg/DistanceMeasurement
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 806370
+    - topic_metadata:
+        name: /reference_generator/autotrack_speed
+        type: std_msgs/msg/Float64
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /rgb_cam_fs_s/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /crossing_behavior/status
+        type: ros_supervisory_interfaces/msg/CrossingBehaviorStatus
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285970
+    - topic_metadata:
+        name: /mt_interface/alarm_limits
+        type: ros_mt_interface/msg/AlarmLimits
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /autotrack_behavior/autotrack/_action/feedback
+        type: ros_supervisory_interfaces/action/AutotrackBehavior_FeedbackMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /rgb_cam_fs_f/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142977
+    - topic_metadata:
+        name: /mt_interface/ready_for_autonomy
+        type: std_msgs/msg/Bool
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /autonomy_mode_controller/enable_autonomy
+        type: std_msgs/msg/Bool
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285969
+    - topic_metadata:
+        name: /rgb_cam_fs_s/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /autotrack_behavior/heartbeat
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 0\n    nsec: 200000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /navigation/twist
+        type: geometry_msgs/msg/TwistStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 558024
+    - topic_metadata:
+        name: /navigation/pose
+        type: geometry_msgs/msg/PoseStamped
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 557996
+    - topic_metadata:
+        name: /mt_interface/mode
+        type: ros_zb_interfaces/msg/DPMode
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 1\n    nsec: 500000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /mt_interface/status_thrusters
+        type: ros_mt_interface/msg/ThrusterEnableDisable
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /crossing_behavior/crossing/_action/status
+        type: action_msgs/msg/GoalStatusArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 8
+    - topic_metadata:
+        name: /rgb_cam_ap_p/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /rgb_cam_ap_p/meta
+        type: image_meta_msgs_ros2/msg/ImageMetaData
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /crossing_behavior/go_to_dock
+        type: std_msgs/msg/String
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 66
+    - topic_metadata:
+        name: /mt_interface/status_sensors
+        type: ros_mt_interface/msg/SensorEnableDisable
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /sp_vp/run_sp_vp/_action/status
+        type: action_msgs/msg/GoalStatusArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 986
+    - topic_metadata:
+        name: /crossing_behavior/nominal_path_vis
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 68
+    - topic_metadata:
+        name: /lidar_aft/points_free
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285969
+    - topic_metadata:
+        name: /mt_interface/heading_setpoint
+        type: ros_mt_interface/msg/HeadingSetpoint
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /crossing_behavior/heartbeat
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 0\n    nsec: 200000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2542809
+    - topic_metadata:
+        name: /crossing_behavior/pause_transit
+        type: std_msgs/msg/Bool
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 27
+    - topic_metadata:
+        name: /mt_interface/external_control_input
+        type: ros_mt_interface/msg/ExternalControlInput
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 0
+    - topic_metadata:
+        name: /lidar_fore/points
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285968
+    - topic_metadata:
+        name: /lidar_fore/detections
+        type: ros_zb_interfaces/msg/ClusterArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 57193
+    - topic_metadata:
+        name: /lidar_aft/detections_as_markers
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 114386
+    - topic_metadata:
+        name: /lidar_fore/points_free
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 285966
+    - topic_metadata:
+        name: /reference_generator/waypoints
+        type: ros_zb_interfaces/msg/WaypointList
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 632
+    - topic_metadata:
+        name: /lidar_aft/detections
+        type: ros_zb_interfaces/msg/ClusterArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 57193
+    - topic_metadata:
+        name: /sitaw/targets_as_informative_markers
+        type: visualization_msgs/msg/MarkerArray
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 125270
+    - topic_metadata:
+        name: /statistics
+        type: statistics_msgs/msg/MetricsMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 2\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false\n- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 343150
+    - topic_metadata:
+        name: /mt_interface/mode_selector
+        type: ros_mt_interface/msg/ModeSelector
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 1\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 28546
+    - topic_metadata:
+        name: /sp_vp/run_sp_vp/_action/feedback
+        type: ros_mpcs_interfaces/action/RunSpVp_FeedbackMessage
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 2286
+    - topic_metadata:
+        name: /reference_generator/mode
+        type: ros_mpcs_interfaces/msg/ReferenceGeneratorMode
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 0\n    nsec: 200000000\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 286305
+    - topic_metadata:
+        name: /supervisory/select_autonomy_mode
+        type: ros_supervisory_interfaces/msg/AutonomyModes
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 4
+    - topic_metadata:
+        name: /rgb_cam_as_s/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 5\n    nsec: 0\n  lifespan:\n    sec: 1\n    nsec: 0\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 10\n    nsec: 0\n  avoid_ros_namespace_conventions: false"
+      message_count: 142978
+    - topic_metadata:
+        name: /supervisory/enable_autonomy
+        type: ros_supervisory_interfaces/msg/VesselState
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 3
+    - topic_metadata:
+        name: /radar/spokes
+        type: ros_navico_radar_driver/msg/RadarDopplerSpoke
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 300760
+    - topic_metadata:
+        name: /crossing_behavior/accept_trajectory
+        type: std_msgs/msg/Empty
+        serialization_format: cdr
+        offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 9223372036\n    nsec: 854775807\n  lifespan:\n    sec: 9223372036\n    nsec: 854775807\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 9223372036\n    nsec: 854775807\n  avoid_ros_namespace_conventions: false"
+      message_count: 1
+  compression_format: zstd
+  compression_mode: MESSAGE
+  relative_file_paths:
+    - rosbag2_2022_10_09-08_02_54_0.db3
+    - rosbag2_2022_10_09-08_02_54_1.db3
+    - rosbag2_2022_10_09-08_02_54_2.db3
+    - rosbag2_2022_10_09-08_02_54_3.db3
+    - rosbag2_2022_10_09-08_02_54_4.db3
+    - rosbag2_2022_10_09-08_02_54_5.db3
+    - rosbag2_2022_10_09-08_02_54_6.db3
+    - rosbag2_2022_10_09-08_02_54_7.db3
+    - rosbag2_2022_10_09-08_02_54_8.db3
+    - rosbag2_2022_10_09-08_02_54_9.db3
+    - rosbag2_2022_10_09-08_02_54_10.db3
+    - rosbag2_2022_10_09-08_02_54_11.db3
+    - rosbag2_2022_10_09-08_02_54_12.db3
+    - rosbag2_2022_10_09-08_02_54_13.db3
+    - rosbag2_2022_10_09-08_02_54_14.db3
+    - rosbag2_2022_10_09-08_02_54_15.db3
+    - rosbag2_2022_10_09-08_02_54_16.db3
+    - rosbag2_2022_10_09-08_02_54_17.db3
+    - rosbag2_2022_10_09-08_02_54_18.db3
+    - rosbag2_2022_10_09-08_02_54_19.db3
+    - rosbag2_2022_10_09-08_02_54_20.db3
+    - rosbag2_2022_10_09-08_02_54_21.db3
+    - rosbag2_2022_10_09-08_02_54_22.db3
+    - rosbag2_2022_10_09-08_02_54_23.db3
+    - rosbag2_2022_10_09-08_02_54_24.db3
+    - rosbag2_2022_10_09-08_02_54_25.db3
+    - rosbag2_2022_10_09-08_02_54_26.db3
+    - rosbag2_2022_10_09-08_02_54_27.db3
+    - rosbag2_2022_10_09-08_02_54_28.db3
+    - rosbag2_2022_10_09-08_02_54_29.db3
+    - rosbag2_2022_10_09-08_02_54_30.db3
+    - rosbag2_2022_10_09-08_02_54_31.db3
+    - rosbag2_2022_10_09-08_02_54_32.db3
+    - rosbag2_2022_10_09-08_02_54_33.db3
+    - rosbag2_2022_10_09-08_02_54_34.db3
+    - rosbag2_2022_10_09-08_02_54_35.db3
+    - rosbag2_2022_10_09-08_02_54_36.db3
+    - rosbag2_2022_10_09-08_02_54_37.db3
+    - rosbag2_2022_10_09-08_02_54_38.db3
+    - rosbag2_2022_10_09-08_02_54_39.db3
+    - rosbag2_2022_10_09-08_02_54_40.db3
+    - rosbag2_2022_10_09-08_02_54_41.db3
+    - rosbag2_2022_10_09-08_02_54_42.db3
+    - rosbag2_2022_10_09-08_02_54_43.db3
+    - rosbag2_2022_10_09-08_02_54_44.db3
+    - rosbag2_2022_10_09-08_02_54_45.db3
+    - rosbag2_2022_10_09-08_02_54_46.db3
+    - rosbag2_2022_10_09-08_02_54_47.db3
+    - rosbag2_2022_10_09-08_02_54_48.db3
+    - rosbag2_2022_10_09-08_02_54_49.db3
+    - rosbag2_2022_10_09-08_02_54_50.db3
+    - rosbag2_2022_10_09-08_02_54_51.db3
+    - rosbag2_2022_10_09-08_02_54_52.db3
+    - rosbag2_2022_10_09-08_02_54_53.db3
+    - rosbag2_2022_10_09-08_02_54_54.db3
+    - rosbag2_2022_10_09-08_02_54_55.db3
+    - rosbag2_2022_10_09-08_02_54_56.db3
+    - rosbag2_2022_10_09-08_02_54_57.db3
+    - rosbag2_2022_10_09-08_02_54_58.db3
+    - rosbag2_2022_10_09-08_02_54_59.db3
+    - rosbag2_2022_10_09-08_02_54_60.db3
+    - rosbag2_2022_10_09-08_02_54_61.db3
+    - rosbag2_2022_10_09-08_02_54_62.db3
+    - rosbag2_2022_10_09-08_02_54_63.db3
+    - rosbag2_2022_10_09-08_02_54_64.db3
+    - rosbag2_2022_10_09-08_02_54_65.db3
+    - rosbag2_2022_10_09-08_02_54_66.db3
+    - rosbag2_2022_10_09-08_02_54_67.db3
+    - rosbag2_2022_10_09-08_02_54_68.db3
+    - rosbag2_2022_10_09-08_02_54_69.db3
+    - rosbag2_2022_10_09-08_02_54_70.db3
+    - rosbag2_2022_10_09-08_02_54_71.db3
+    - rosbag2_2022_10_09-08_02_54_72.db3
+    - rosbag2_2022_10_09-08_02_54_73.db3
+    - rosbag2_2022_10_09-08_02_54_74.db3
+    - rosbag2_2022_10_09-08_02_54_75.db3
+    - rosbag2_2022_10_09-08_02_54_76.db3
+    - rosbag2_2022_10_09-08_02_54_77.db3
+    - rosbag2_2022_10_09-08_02_54_78.db3
+    - rosbag2_2022_10_09-08_02_54_79.db3
+    - rosbag2_2022_10_09-08_02_54_80.db3
+    - rosbag2_2022_10_09-08_02_54_81.db3
+    - rosbag2_2022_10_09-08_02_54_82.db3
+    - rosbag2_2022_10_09-08_02_54_83.db3
+    - rosbag2_2022_10_09-08_02_54_84.db3
+    - rosbag2_2022_10_09-08_02_54_85.db3
+    - rosbag2_2022_10_09-08_02_54_86.db3
+    - rosbag2_2022_10_09-08_02_54_87.db3
+    - rosbag2_2022_10_09-08_02_54_88.db3
+    - rosbag2_2022_10_09-08_02_54_89.db3
+    - rosbag2_2022_10_09-08_02_54_90.db3
+    - rosbag2_2022_10_09-08_02_54_91.db3
+    - rosbag2_2022_10_09-08_02_54_92.db3
+    - rosbag2_2022_10_09-08_02_54_93.db3
+    - rosbag2_2022_10_09-08_02_54_94.db3
+    - rosbag2_2022_10_09-08_02_54_95.db3
+  files:
+    - path: rosbag2_2022_10_09-08_02_54_0.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665302574512831912
+      duration:
+        nanoseconds: 299998086126
+      message_count: 280817
+    - path: rosbag2_2022_10_09-08_02_54_1.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665302874513873848
+      duration:
+        nanoseconds: 299994292912
+      message_count: 283133
+    - path: rosbag2_2022_10_09-08_02_54_2.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665303174497788524
+      duration:
+        nanoseconds: 299997986827
+      message_count: 283050
+    - path: rosbag2_2022_10_09-08_02_54_3.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665303474494345331
+      duration:
+        nanoseconds: 299999145654
+      message_count: 285849
+    - path: rosbag2_2022_10_09-08_02_54_4.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665303774475692511
+      duration:
+        nanoseconds: 299998560551
+      message_count: 286715
+    - path: rosbag2_2022_10_09-08_02_54_5.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665304074474073911
+      duration:
+        nanoseconds: 299997912180
+      message_count: 294409
+    - path: rosbag2_2022_10_09-08_02_54_6.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665304374475880559
+      duration:
+        nanoseconds: 299999101345
+      message_count: 317596
+    - path: rosbag2_2022_10_09-08_02_54_7.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665304674469105563
+      duration:
+        nanoseconds: 299999987431
+      message_count: 319237
+    - path: rosbag2_2022_10_09-08_02_54_8.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665304974473546071
+      duration:
+        nanoseconds: 299997550011
+      message_count: 319200
+    - path: rosbag2_2022_10_09-08_02_54_9.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665305274478024853
+      duration:
+        nanoseconds: 299998462577
+      message_count: 319034
+    - path: rosbag2_2022_10_09-08_02_54_10.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665305574475054404
+      duration:
+        nanoseconds: 299995236160
+      message_count: 317860
+    - path: rosbag2_2022_10_09-08_02_54_11.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665305874475564632
+      duration:
+        nanoseconds: 299999890306
+      message_count: 317798
+    - path: rosbag2_2022_10_09-08_02_54_12.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665306174474900849
+      duration:
+        nanoseconds: 299998641394
+      message_count: 318919
+    - path: rosbag2_2022_10_09-08_02_54_13.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665306474476139410
+      duration:
+        nanoseconds: 299999092521
+      message_count: 318932
+    - path: rosbag2_2022_10_09-08_02_54_14.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665306774472112855
+      duration:
+        nanoseconds: 299999408845
+      message_count: 317595
+    - path: rosbag2_2022_10_09-08_02_54_15.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665307074471185806
+      duration:
+        nanoseconds: 299999643405
+      message_count: 316928
+    - path: rosbag2_2022_10_09-08_02_54_16.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665307374470365582
+      duration:
+        nanoseconds: 299997461027
+      message_count: 317051
+    - path: rosbag2_2022_10_09-08_02_54_17.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665307674476575382
+      duration:
+        nanoseconds: 299998263581
+      message_count: 316766
+    - path: rosbag2_2022_10_09-08_02_54_18.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665307974474699882
+      duration:
+        nanoseconds: 299991748894
+      message_count: 317028
+    - path: rosbag2_2022_10_09-08_02_54_19.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665308274475024989
+      duration:
+        nanoseconds: 299999572487
+      message_count: 317152
+    - path: rosbag2_2022_10_09-08_02_54_20.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665308574468888522
+      duration:
+        nanoseconds: 299995202910
+      message_count: 317137
+    - path: rosbag2_2022_10_09-08_02_54_21.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665308874469751610
+      duration:
+        nanoseconds: 299995428896
+      message_count: 316530
+    - path: rosbag2_2022_10_09-08_02_54_22.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665309174470884518
+      duration:
+        nanoseconds: 299998940716
+      message_count: 316695
+    - path: rosbag2_2022_10_09-08_02_54_23.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665309474469579064
+      duration:
+        nanoseconds: 299994837310
+      message_count: 316577
+    - path: rosbag2_2022_10_09-08_02_54_24.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665309774470855185
+      duration:
+        nanoseconds: 299997258435
+      message_count: 316903
+    - path: rosbag2_2022_10_09-08_02_54_25.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665310074471222523
+      duration:
+        nanoseconds: 299998612286
+      message_count: 317086
+    - path: rosbag2_2022_10_09-08_02_54_26.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665310374463387933
+      duration:
+        nanoseconds: 299997983966
+      message_count: 316277
+    - path: rosbag2_2022_10_09-08_02_54_27.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665310674465258869
+      duration:
+        nanoseconds: 299998908014
+      message_count: 317168
+    - path: rosbag2_2022_10_09-08_02_54_28.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665310974469054371
+      duration:
+        nanoseconds: 299997219010
+      message_count: 316772
+    - path: rosbag2_2022_10_09-08_02_54_29.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665311274468205405
+      duration:
+        nanoseconds: 299999933465
+      message_count: 317228
+    - path: rosbag2_2022_10_09-08_02_54_30.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665311574463717104
+      duration:
+        nanoseconds: 299999407495
+      message_count: 317914
+    - path: rosbag2_2022_10_09-08_02_54_31.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665311874463017182
+      duration:
+        nanoseconds: 299999121925
+      message_count: 319210
+    - path: rosbag2_2022_10_09-08_02_54_32.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665312174460317776
+      duration:
+        nanoseconds: 299992111732
+      message_count: 317685
+    - path: rosbag2_2022_10_09-08_02_54_33.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665312474461861663
+      duration:
+        nanoseconds: 299997427953
+      message_count: 316633
+    - path: rosbag2_2022_10_09-08_02_54_34.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665312774458697972
+      duration:
+        nanoseconds: 299997091912
+      message_count: 319244
+    - path: rosbag2_2022_10_09-08_02_54_35.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665313074458650358
+      duration:
+        nanoseconds: 299992251789
+      message_count: 317688
+    - path: rosbag2_2022_10_09-08_02_54_36.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665313374459017430
+      duration:
+        nanoseconds: 299999657012
+      message_count: 317459
+    - path: rosbag2_2022_10_09-08_02_54_37.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665313674450773500
+      duration:
+        nanoseconds: 299999116965
+      message_count: 308732
+    - path: rosbag2_2022_10_09-08_02_54_38.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665313974455450063
+      duration:
+        nanoseconds: 299999920146
+      message_count: 317332
+    - path: rosbag2_2022_10_09-08_02_54_39.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665314274442163181
+      duration:
+        nanoseconds: 299993644576
+      message_count: 317129
+    - path: rosbag2_2022_10_09-08_02_54_40.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665314574431830249
+      duration:
+        nanoseconds: 299996283672
+      message_count: 316127
+    - path: rosbag2_2022_10_09-08_02_54_41.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665314874426685143
+      duration:
+        nanoseconds: 299997749640
+      message_count: 317207
+    - path: rosbag2_2022_10_09-08_02_54_42.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665315174420446585
+      duration:
+        nanoseconds: 299998923504
+      message_count: 317147
+    - path: rosbag2_2022_10_09-08_02_54_43.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665315474422551127
+      duration:
+        nanoseconds: 299998222946
+      message_count: 317198
+    - path: rosbag2_2022_10_09-08_02_54_44.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665315774425139293
+      duration:
+        nanoseconds: 299995076594
+      message_count: 317913
+    - path: rosbag2_2022_10_09-08_02_54_45.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665316074419346515
+      duration:
+        nanoseconds: 299998167353
+      message_count: 317193
+    - path: rosbag2_2022_10_09-08_02_54_46.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665316374420236571
+      duration:
+        nanoseconds: 299996641527
+      message_count: 317603
+    - path: rosbag2_2022_10_09-08_02_54_47.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665316674421938764
+      duration:
+        nanoseconds: 299998281130
+      message_count: 317012
+    - path: rosbag2_2022_10_09-08_02_54_48.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665316974425957413
+      duration:
+        nanoseconds: 299990690814
+      message_count: 319153
+    - path: rosbag2_2022_10_09-08_02_54_49.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665317274426176614
+      duration:
+        nanoseconds: 299998855365
+      message_count: 319534
+    - path: rosbag2_2022_10_09-08_02_54_50.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665317574428792002
+      duration:
+        nanoseconds: 299999747102
+      message_count: 319410
+    - path: rosbag2_2022_10_09-08_02_54_51.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665317874429228585
+      duration:
+        nanoseconds: 299999983891
+      message_count: 319163
+    - path: rosbag2_2022_10_09-08_02_54_52.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665318174434499175
+      duration:
+        nanoseconds: 299999804676
+      message_count: 319092
+    - path: rosbag2_2022_10_09-08_02_54_53.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665318474443249089
+      duration:
+        nanoseconds: 299998530338
+      message_count: 319323
+    - path: rosbag2_2022_10_09-08_02_54_54.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665318774446630196
+      duration:
+        nanoseconds: 299996087631
+      message_count: 317412
+    - path: rosbag2_2022_10_09-08_02_54_55.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665319074441172682
+      duration:
+        nanoseconds: 299999624067
+      message_count: 317027
+    - path: rosbag2_2022_10_09-08_02_54_56.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665319374443719341
+      duration:
+        nanoseconds: 299996877355
+      message_count: 317324
+    - path: rosbag2_2022_10_09-08_02_54_57.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665319674440383455
+      duration:
+        nanoseconds: 299996916646
+      message_count: 317116
+    - path: rosbag2_2022_10_09-08_02_54_58.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665319974440573696
+      duration:
+        nanoseconds: 299990760147
+      message_count: 318898
+    - path: rosbag2_2022_10_09-08_02_54_59.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665320274440783945
+      duration:
+        nanoseconds: 299998141900
+      message_count: 317509
+    - path: rosbag2_2022_10_09-08_02_54_60.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665320574443726824
+      duration:
+        nanoseconds: 299999867972
+      message_count: 318542
+    - path: rosbag2_2022_10_09-08_02_54_61.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665320874442575606
+      duration:
+        nanoseconds: 299994637750
+      message_count: 317280
+    - path: rosbag2_2022_10_09-08_02_54_62.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665321174442706146
+      duration:
+        nanoseconds: 299994213302
+      message_count: 316813
+    - path: rosbag2_2022_10_09-08_02_54_63.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665321474445781931
+      duration:
+        nanoseconds: 299998732649
+      message_count: 317068
+    - path: rosbag2_2022_10_09-08_02_54_64.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665321774448278206
+      duration:
+        nanoseconds: 299995821495
+      message_count: 317300
+    - path: rosbag2_2022_10_09-08_02_54_65.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665322074442553089
+      duration:
+        nanoseconds: 299999369898
+      message_count: 317223
+    - path: rosbag2_2022_10_09-08_02_54_66.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665322374443259424
+      duration:
+        nanoseconds: 299997359874
+      message_count: 317621
+    - path: rosbag2_2022_10_09-08_02_54_67.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665322674445939409
+      duration:
+        nanoseconds: 299999531892
+      message_count: 317696
+    - path: rosbag2_2022_10_09-08_02_54_68.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665322974444970111
+      duration:
+        nanoseconds: 299999814850
+      message_count: 317522
+    - path: rosbag2_2022_10_09-08_02_54_69.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665323274426546593
+      duration:
+        nanoseconds: 299998793324
+      message_count: 317261
+    - path: rosbag2_2022_10_09-08_02_54_70.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665323574428082225
+      duration:
+        nanoseconds: 299995979305
+      message_count: 316875
+    - path: rosbag2_2022_10_09-08_02_54_71.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665323874428969854
+      duration:
+        nanoseconds: 299997508885
+      message_count: 316971
+    - path: rosbag2_2022_10_09-08_02_54_72.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665324174435829478
+      duration:
+        nanoseconds: 299992245918
+      message_count: 316901
+    - path: rosbag2_2022_10_09-08_02_54_73.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665324474435837037
+      duration:
+        nanoseconds: 299998202380
+      message_count: 318098
+    - path: rosbag2_2022_10_09-08_02_54_74.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665324774438875823
+      duration:
+        nanoseconds: 299999646342
+      message_count: 317671
+    - path: rosbag2_2022_10_09-08_02_54_75.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665325074441712011
+      duration:
+        nanoseconds: 299996116742
+      message_count: 317085
+    - path: rosbag2_2022_10_09-08_02_54_76.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665325374441949197
+      duration:
+        nanoseconds: 299998409215
+      message_count: 317416
+    - path: rosbag2_2022_10_09-08_02_54_77.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665325674443504656
+      duration:
+        nanoseconds: 299999873641
+      message_count: 317973
+    - path: rosbag2_2022_10_09-08_02_54_78.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665325974442912058
+      duration:
+        nanoseconds: 299997879216
+      message_count: 318952
+    - path: rosbag2_2022_10_09-08_02_54_79.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665326274443624915
+      duration:
+        nanoseconds: 299999829638
+      message_count: 318756
+    - path: rosbag2_2022_10_09-08_02_54_80.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665326574434389916
+      duration:
+        nanoseconds: 299993822781
+      message_count: 318196
+    - path: rosbag2_2022_10_09-08_02_54_81.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665326874438928746
+      duration:
+        nanoseconds: 299998631074
+      message_count: 316862
+    - path: rosbag2_2022_10_09-08_02_54_82.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665327174443639428
+      duration:
+        nanoseconds: 299997631248
+      message_count: 316927
+    - path: rosbag2_2022_10_09-08_02_54_83.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665327474446414033
+      duration:
+        nanoseconds: 299999202339
+      message_count: 317014
+    - path: rosbag2_2022_10_09-08_02_54_84.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665327774441821224
+      duration:
+        nanoseconds: 299989321553
+      message_count: 317417
+    - path: rosbag2_2022_10_09-08_02_54_85.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665328074443380633
+      duration:
+        nanoseconds: 299999164156
+      message_count: 318835
+    - path: rosbag2_2022_10_09-08_02_54_86.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665328374435421715
+      duration:
+        nanoseconds: 299994282606
+      message_count: 316945
+    - path: rosbag2_2022_10_09-08_02_54_87.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665328674429219079
+      duration:
+        nanoseconds: 299996898122
+      message_count: 316930
+    - path: rosbag2_2022_10_09-08_02_54_88.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665328974423501216
+      duration:
+        nanoseconds: 299998312540
+      message_count: 317515
+    - path: rosbag2_2022_10_09-08_02_54_89.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665329274423804538
+      duration:
+        nanoseconds: 299998031438
+      message_count: 317003
+    - path: rosbag2_2022_10_09-08_02_54_90.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665329574423838160
+      duration:
+        nanoseconds: 299999440021
+      message_count: 317181
+    - path: rosbag2_2022_10_09-08_02_54_91.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665329874410148348
+      duration:
+        nanoseconds: 299998406978
+      message_count: 317829
+    - path: rosbag2_2022_10_09-08_02_54_92.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665330174405900111
+      duration:
+        nanoseconds: 299999456789
+      message_count: 317132
+    - path: rosbag2_2022_10_09-08_02_54_93.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665330474408704189
+      duration:
+        nanoseconds: 299999933592
+      message_count: 316535
+    - path: rosbag2_2022_10_09-08_02_54_94.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665330774398814852
+      duration:
+        nanoseconds: 299999637953
+      message_count: 316653
+    - path: rosbag2_2022_10_09-08_02_54_95.db3
+      starting_time:
+        nanoseconds_since_epoch: 1665331074397524133
+      duration:
+        nanoseconds: 100926626501
+      message_count: 107150

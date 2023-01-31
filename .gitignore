@@ -1,0 +1,14 @@
+__pycache__/
+Image_compression_test/
+Images/
+Other_sources/
+pixel_position_arrays/
+Profiler_stats/
+Rosbags/
+Test_code/
+test_make_bew_with_lines/
+Video/
+all_topics.txt
+camer_pos.yaml
+error_analysis.py
+rosbag_api.py
