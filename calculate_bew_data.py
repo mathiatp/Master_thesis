@@ -4,6 +4,46 @@ from config import MAX_DIST_X, MIN_DIST_X, MAX_DIST_Y, MIN_DIST_Y, BEW_IMAGE_HEI
 from scipy.interpolate import griddata
 from scipy.spatial import Delaunay
 
+def georeference_point_eq(intrinsic_matrix: np.ndarray,
+                            image_points: np.ndarray,
+                            camer_rotation: np.ndarray,
+                            translation: np.ndarray,
+                            target_elevation: np.ndarray) -> np.ndarray:
+    """
+    Estimate origin of pixel point using georeferencing.
+    Relies on as of yet unported ROS2 functionality (transform).
+    :param Header header: Header with timestamp
+    :param np.ndarray image_points: Image point to georeference
+    :param str camera: Origin camera
+    :param np.ndarray ownship_elevation: Elevation of ownship
+    :return np.ndarray: Cartesian estimate of pixel origin
+    """
+    intrinsic_matrix = intrinsic_matrix
+
+    rot_mat = R.from_euler('xyz', camer_rotation).as_matrix().T
+    t_vec= -rot_mat@np.transpose(translation)
+    extrinsic_matrix = np.concatenate((rot_mat, t_vec), axis=1) #This is kind of invR|-invR*t
+    
+    P = intrinsic_matrix @ extrinsic_matrix
+
+    x_p, y_p = image_points
+    # Calculate coefficients for the left/right side of reverse pinhole model
+    left_side = np.array(
+        [[x_p*P[2, 0] - P[0, 0], x_p*P[2, 1] - P[0, 1]],
+            [y_p*P[2, 0] - P[1, 0], y_p*P[2, 1] - P[1, 1]]])
+
+    right_side = np.array(
+        [[target_elevation*(P[0, 2]-x_p*P[2, 2])+P[0, 3]-x_p*P[2, 3]],
+            [target_elevation*(P[1, 2]-y_p*P[2, 2])+P[1, 3]-y_p*P[2, 3]]])
+
+    xy = np.linalg.inv(left_side)@right_side
+
+    pos_estimate = np.array(
+        [xy[0, 0],
+            xy[1, 0],
+            target_elevation])
+    return pos_estimate 
+
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:
         file_name_pixel_position = '/home/mathias/Documents/Master_Thesis/pixel_position_arrays/pixel_position_'+name+'.npy'
