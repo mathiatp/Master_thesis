@@ -1,9 +1,8 @@
 import numpy as np
 import cv2
 from config import MAX_DIST_X, MIN_DIST_X, MAX_DIST_Y, MIN_DIST_Y, BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
-from utils import georeference_point_eq
 from scipy.interpolate import griddata
-
+from scipy.spatial import Delaunay
 
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:

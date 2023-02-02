@@ -2,10 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import LinearLocator
 
-import numpy
-
-
-
 to_percent = 100
 
 # Make radii and angles spaces (radius r=0 omitted to eliminate duplication).

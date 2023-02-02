@@ -4,35 +4,99 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from rosbags.image import message_to_cvimage
-from utils import georeference_point_eq
-from scipy.interpolate import griddata
+from scipy.interpolate import griddata, LinearNDInterpolator, NearestNDInterpolator
+from scipy.spatial import Delaunay
 import yaml
 from yaml.loader import SafeLoader
 from cls_mA2 import mA2
 from cls_Camera import Camera
 from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation
+from get_black_fill_pos_rgb import get_black_pixel_pos_and_rgb
 from config import BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
+import cProfile
+import pstats
+import multiprocessing
+import time
+
+#The main advantage of Python is that there are a number of ways of very easily 
+# extending your code with C (ctypes, swig,f2py) / C++ (boost.python, weave.inline, weave.blitz) / Fortran (f2py) 
+# - or even just by adding type annotations to Python so it can be processed to C (cython)
+def individual_color_interpolation(grid_x: np.array,
+                                   grid_y: np.array,
+                                   delaunay: Delaunay,
+                                   color: np.array):
+    interp = NearestNDInterpolator(delaunay,color)
+    im_color = interp((grid_x, grid_y))
+    return im_color
+
+def individual_color_interpolation_mp(args):
+    grid_x, grid_y, delaunay, color, i = args
+    interp = NearestNDInterpolator(delaunay,color)
+    im_color = interp((grid_x, grid_y))
+    print('Color: '+ str(i))
+    return [im_color,i]
 
 def make_BEW(vessel_mA2: mA2):
+    start = time.time()
     points_fp_f, rgb_fp_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fp_f.camera_rotation, vessel_mA2.fp_f.pixel_positions, vessel_mA2.fp_f.im)
-    points_fs_f, rgb_fs_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_f.camera_rotation, vessel_mA2.fs_s.pixel_positions, vessel_mA2.fs_f.im)
+    points_fs_f, rgb_fs_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_f.camera_rotation, vessel_mA2.fs_f.pixel_positions, vessel_mA2.fs_f.im)
     points_fs_s, rgb_fs_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_s.camera_rotation, vessel_mA2.fs_s.pixel_positions, vessel_mA2.fs_s.im)
     points_ap_p, rgb_ap_p = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_p.camera_rotation, vessel_mA2.ap_p.pixel_positions, vessel_mA2.ap_p.im)
     points_ap_a, rgb_ap_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_a.camera_rotation, vessel_mA2.ap_a.pixel_positions, vessel_mA2.ap_a.im)
     points_as_a, rgb_as_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_a.camera_rotation, vessel_mA2.as_a.pixel_positions, vessel_mA2.as_a.im)
     points_as_s, rgb_as_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_s.camera_rotation, vessel_mA2.as_s.pixel_positions, vessel_mA2.as_s.im)
-
-    points = np.vstack((points_fp_f, points_fs_f,points_fs_s, points_ap_p, points_ap_a,points_as_a,points_as_s))
-
-    rgb = np.vstack((rgb_fp_f, rgb_fs_f,rgb_fs_s, rgb_ap_p, rgb_ap_a,rgb_as_a,rgb_as_s))
-
+    
     grid_x,grid_y = np.meshgrid(range(BEW_IMAGE_HEIGHT), range(BEW_IMAGE_WIDTH), indexing='ij')
 
+    points = np.vstack((points_fp_f,
+                        points_fs_f,
+                        points_fs_s, 
+                        points_ap_p, 
+                        points_ap_a,
+                        points_as_a,
+                        points_as_s,
+                        vessel_mA2.black_pixel_pos))
 
-    grid_z0 = griddata(points, rgb, (grid_x, grid_y), method='linear')
-    grid_z0[np.where(np.isnan(grid_z0))] = 0
-    grid_z0 = grid_z0[:,:,:].astype(np.uint8)
-    return grid_z0
+    rgb = np.vstack((rgb_fp_f,
+                     rgb_fs_f, 
+                     rgb_fs_s, 
+                     rgb_ap_p, 
+                     rgb_ap_a,
+                     rgb_as_a,
+                     rgb_as_s,
+                     vessel_mA2.black_pixel_rgb))
+
+   
+    # # Delaunay 1
+    interp = NearestNDInterpolator(vessel_mA2.delaunay,rgb)
+    im = interp((grid_x, grid_y))
+
+    
+    # input_for_mp = [[grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0],0],
+    #                 [grid_x,grid_y,vessel_mA2.delaunay,rgb[:,1],1],
+    #                 [grid_x,grid_y,vessel_mA2.delaunay,rgb[:,2],2]]
+    
+    # Delaunay 2
+    # red = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0])
+    # green = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,1])
+    # blue = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,2])
+    # im = np.dstack((red,green,blue))
+    
+    # Delaunay 3
+    # with multiprocessing.Pool() as pool:
+    #     color = pool.map(individual_color_interpolation_mp,input_for_mp)
+    # im = np.dstack((color[0][0],color[1][0],color[2][0]))
+    end = time.time()
+    print('Time: ' + str(end-start))
+    return im
+
+    # Griddata
+    # grid_z0 = griddata(points, rgb[:], (grid_x, grid_y), method='nearest')
+    # grid_z0[np.where(np.isnan(grid_z0))] = 0
+    # grid_z0 = grid_z0[:,:,:].astype(np.uint8)
+    # end = time.time()
+    # print('Time: ' + str(end-start))
+    # return grid_z0
 
 
 
@@ -60,6 +124,7 @@ def init_mA2():
 
 def main():
     vessel_mA2 = init_mA2()
+    # print('Cores:'+str(multiprocessing.cpu_count())) = 12
     
     file_path = "/home/mathias/Documents/Master_Thesis/Rosbags/rosbag2_2022_10_09-08_02_54_80/"
 
@@ -73,6 +138,7 @@ def main():
                    '/rgb_cam_as_a/image_raw',
                    '/rgb_cam_as_s/image_raw']
     image_count = 0
+    frame = 0
     
     # create reader instance and open for reading
     with Reader(file_path) as reader:
@@ -103,28 +169,35 @@ def main():
 
             elif(id =='rgb_cam_ap_p'):
                 vessel_mA2.ap_p._im = cv2.undistort(img,vessel_mA2.ap_p.K,vessel_mA2.ap_p.D)
-            
+
             elif(id =='rgb_cam_ap_a'):
                 vessel_mA2.ap_a._im = cv2.undistort(img,vessel_mA2.ap_a.K,vessel_mA2.ap_a.D)
-            
+
             elif(id =='rgb_cam_as_a'):
                 vessel_mA2.as_a._im = cv2.undistort(img,vessel_mA2.as_a.K,vessel_mA2.as_a.D)
-            
+
             elif(id =='rgb_cam_as_s'):
                 vessel_mA2.as_s._im = cv2.undistort(img,vessel_mA2.as_s.K,vessel_mA2.as_s.D)
+
             image_count = image_count + 1
             
-            if image_count >= 12:
+            if image_count %8 == 0:
                 print('Making BEW')
                 img_bew = make_BEW(vessel_mA2)
+                frame = frame + 1
 
             # plt.figure('Img_distorted')
             # plt.imshow(img)
-            # plt.figure('Img_undistorted')
-            # plt.imshow(img_undisorted)
-                plt.figure('BEW')
-                plt.imshow(img_bew)
-                plt.show()
+                # plt.imsave('First 360 view_7_cameras.png', img_bew)
+                # plt.figure('Img_undistorted_as_a')
+                # plt.imshow(vessel_mA2.as_a.im)
+                # plt.figure('BEW')
+                # plt.imshow(img_bew)
+                # plt.show()
+            if frame >=10:
+                break
+            
+
 
             
 
@@ -132,26 +205,7 @@ def main():
     
 
 if __name__ == '__main__':
-    main()
-
-
-# rgb_cam_ap_a
-# rgb_cam_ap_p
-# rgb_cam_fs_f
-# rgb_cam_as_a
-# rgb_cam_fp_f
-# rgb_cam_as_s
-# rgb_cam_ap_a
-# rgb_cam_fs_s
-# rgb_cam_ap_p
-# rgb_cam_fs_f
-# rgb_cam_as_a
-# rgb_cam_fp_f
-# rgb_cam_as_s
-# rgb_cam_ap_a
-# rgb_cam_fs_s
-# rgb_cam_ap_p
-# rgb_cam_fs_f
-# rgb_cam_as_a
-# rgb_cam_fp_f
-# rgb_cam_as_s
+    with cProfile.Profile() as pr:
+        main()
+    stats = pstats.Stats(pr)
+    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_nearest_delaunay_interp_filled_blac.prof')
