@@ -7,10 +7,11 @@ from rosbags.image import message_to_cvimage
 from scipy.interpolate import griddata, LinearNDInterpolator, NearestNDInterpolator
 from scipy.spatial import Delaunay
 import yaml
+import scipy
 from yaml.loader import SafeLoader
 from cls_mA2 import mA2
 from cls_Camera import Camera
-from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation
+from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation, interpolate, interp_weights
 from get_black_fill_pos_rgb import get_black_pixel_pos_and_rgb
 from config import BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
 import cProfile
@@ -56,6 +57,7 @@ def make_BEW(vessel_mA2: mA2):
                         points_as_a,
                         points_as_s,
                         vessel_mA2.black_pixel_pos))
+    # np.save('points.npy',points)
 
     rgb = np.vstack((rgb_fp_f,
                      rgb_fs_f, 
@@ -66,10 +68,11 @@ def make_BEW(vessel_mA2: mA2):
                      rgb_as_s,
                      vessel_mA2.black_pixel_rgb))
 
-   
+    # np.save('rgb.npy',rgb)
     # # Delaunay 1
-    interp = NearestNDInterpolator(vessel_mA2.delaunay,rgb)
-    im = interp((grid_x, grid_y))
+    # interp = NearestNDInterpolator(vessel_mA2.delaunay,rgb)
+    # interp.
+    # im = interp((grid_x, grid_y))
 
     
     # input_for_mp = [[grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0],0],
@@ -86,9 +89,47 @@ def make_BEW(vessel_mA2: mA2):
     # with multiprocessing.Pool() as pool:
     #     color = pool.map(individual_color_interpolation_mp,input_for_mp)
     # im = np.dstack((color[0][0],color[1][0],color[2][0]))
+    # end = time.time()
+    # print('Time: ' + str(end-start))
+    # return im
+
+    # Delaunay 4
+    # xy = points
+    # uv=np.zeros([grid_x.shape[0]*grid_y.shape[1],2])
+    # uv[:,0]=grid_y.flatten()
+    # uv[:,1]=grid_x.flatten()
+    values = rgb
+
+    # Computed once and for all !
+    # vtx, wts = interp_weights(xy, uv)
+    # np.save('vtx.npy', vtx)
+    # np.save('wts.npy', wts)
+
+    vtx = np.load('vtx.npy')
+    wts = np.load('wts.npy')
+    start = time.time()
+    valuesi_r=interpolate(values[:,0].flatten(), vtx, wts)
+    valuesi_g=interpolate(values[:,1].flatten(), vtx, wts)
+    valuesi_b=interpolate(values[:,2].flatten(), vtx, wts)
+    # end = time.time()
+    # print('Time: ' + str(end-start))
+
+    valuesi_r = valuesi_r.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
+    valuesi_r = valuesi_r.astype(np.uint8)
+    
+    valuesi_g= valuesi_g.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
+    valuesi_g = valuesi_g.astype(np.uint8)
+    
+    
+
+    valuesi_b= valuesi_b.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
+    valuesi_b = valuesi_b.astype(np.uint8)
+ 
+    im = np.dstack((valuesi_r,valuesi_g,valuesi_b))
     end = time.time()
     print('Time: ' + str(end-start))
     return im
+
 
     # Griddata
     # grid_z0 = griddata(points, rgb[:], (grid_x, grid_y), method='nearest')
@@ -101,6 +142,7 @@ def make_BEW(vessel_mA2: mA2):
 
 
 def init_mA2():
+    # print(scipy.__version__) 1.9.1
     # topic_names = ['/rgb_cam_fp_p/image_raw',
     #                '/rgb_cam_fs_f/image_raw',
     #                '/rgb_cam_fs_s/image_raw',
@@ -208,4 +250,4 @@ if __name__ == '__main__':
     with cProfile.Profile() as pr:
         main()
     stats = pstats.Stats(pr)
-    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_nearest_delaunay_interp_filled_blac.prof')
+    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_nearest_pre_calc_we.prof')

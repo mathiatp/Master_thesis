@@ -24,7 +24,7 @@ class mA2:
         self._as_a = camera_as_f
         self._as_s = camera_as_s
         self._black_pixel_pos, self._black_pixel_rgb = get_black_pixel_pos_and_rgb()
-        self._delaunay = self.init_delaunay()
+        # self._delaunay = self.init_delaunay()
 
     def init_delaunay(self):
         points_fp_f, _ = calculate_BEW_points_and_rgb_for_interpolation(self.fp_f.camera_rotation, self.fp_f.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fp_f.png'))

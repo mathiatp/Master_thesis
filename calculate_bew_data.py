@@ -44,6 +44,18 @@ def georeference_point_eq(intrinsic_matrix: np.ndarray,
             target_elevation])
     return pos_estimate 
 
+def interp_weights(xy, uv,d=2):
+    tri = Delaunay(xy)
+    simplex = tri.find_simplex(uv)
+    vertices = np.take(tri.simplices, simplex, axis=0)
+    temp = np.take(tri.transform, simplex, axis=0)
+    delta = uv - temp[:, d]
+    bary = np.einsum('njk,nk->nj', temp[:, :d, :], delta)
+    return vertices, np.hstack((bary, 1 - bary.sum(axis=1, keepdims=True)))
+
+def interpolate(values, vtx, wts):
+    return np.einsum('nj,nj->n', np.take(values, vtx), wts)
+
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:
         file_name_pixel_position = '/home/mathias/Documents/Master_Thesis/pixel_position_arrays/pixel_position_'+name+'.npy'
