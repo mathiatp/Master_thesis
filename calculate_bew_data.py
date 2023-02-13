@@ -1,8 +1,10 @@
 import numpy as np
 import cv2
-from config import MAX_DIST_X, MIN_DIST_X, MAX_DIST_Y, MIN_DIST_Y, BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
+from config import MAX_DIST_X, MIN_DIST_X, MAX_DIST_Y, MIN_DIST_Y, BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH, ROW_CUTOFF
 from scipy.interpolate import griddata
 from scipy.spatial import Delaunay
+from get_black_fill_pos_rgb import im_mask_walls
+import matplotlib.pyplot as plt
 
 def georeference_point_eq(intrinsic_matrix: np.ndarray,
                             image_points: np.ndarray,
@@ -82,7 +84,7 @@ def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name
         np.save(file_name_pixel_position, im_pos)     
         return im_pos
 
-def normalize_im_pos_for_BEW(camera_rotation, im_pos_cut_t):
+def normalize_im_pos_for_BEW(im_pos_cut_t):
     im_pos_cut_F = im_pos_cut_t
     # Swithing from x forward, y right axis to x right, y forward to match image cooridnates
     switch_xy = np.array([[0,1,0],
@@ -112,15 +114,16 @@ def normalize_im_pos_for_BEW(camera_rotation, im_pos_cut_t):
 
 
 
-def calculate_BEW_points_and_rgb_for_interpolation(camera_rotation, img_pos, img_undistorted):
-    row_cut_off = 526
+def calculate_BEW_points_and_rgb_for_interpolation(img_pos, img_undistorted):
+    row_cut_off = ROW_CUTOFF
     rgb_chan = 3
     im_pos_cut = img_pos[row_cut_off:,:,:]
     im_pos_cut_T = np.einsum('ijk->kij',im_pos_cut)
     
+    
     im_cut = img_undistorted[row_cut_off:,:,:]
-    im_pos_normalized = normalize_im_pos_for_BEW(camera_rotation,im_pos_cut_T)
-
+    im_pos_normalized = normalize_im_pos_for_BEW(im_pos_cut_T)
+    
 
     new_h, new_w = 1024, 1224
 
@@ -129,14 +132,16 @@ def calculate_BEW_points_and_rgb_for_interpolation(camera_rotation, img_pos, img
                     [0,           0,          1]])
 
     im_pos_pixel = np.einsum('ij,jkl->ikl', K, im_pos_normalized)
+    
     im_pos_pixel = np.einsum('ijk->jki',im_pos_pixel)
-
+    
+    # any_nan = np.isnan(im_pos_pixel).any()
     im_pos_pixel =  np.nan_to_num(im_pos_pixel, nan = 99999999)
     im_pos_pixel = im_pos_pixel.astype(int)
-    im_pos_pixel = im_pos_pixel[:,:,:2]
+    im_pos_pixel = im_pos_pixel[:,:,:2] #(498, 1224, 2)
 
-    points_x_all = im_pos_pixel[:,:,1]
-    points_x = np.transpose(np.array([np.ravel(points_x_all)]))
+    points_x_all = im_pos_pixel[:,:,1] #(498, 1224)
+    points_x = np.transpose(np.array([np.ravel(points_x_all)])) #(609552, 1)
     points_x_all = np.transpose(np.array([np.ravel(points_x_all)]))
     points_x = np.transpose(np.array([points_x[points_x != 99999999]]))
 
@@ -158,3 +163,119 @@ def calculate_BEW_points_and_rgb_for_interpolation(camera_rotation, img_pos, img
     # grid_z0 = grid_z0[:,:,:].astype(np.uint8)
     
     return  points, rgb 
+
+def calculate_BEW_points_and_mask(img_pos: np.array, wall_mask: np.array):
+    
+    row_cut_off = ROW_CUTOFF
+    rgb_chan = 3
+    # img_pos 1024,1224,3
+    im_pos_cut = img_pos[row_cut_off:,:,:]  # 498,1224,3
+    im_pos_cut_T = np.einsum('ijk->kij',im_pos_cut) # 3,498,1224
+    
+    wall_mask = wall_mask
+    wall_mask = wall_mask[row_cut_off:,:] #498,1224, type=bool
+    image_mask = np.array([wall_mask]) # 1, 498,1224
+    image_mask[0,:,:][np.where(im_pos_cut_T[0,:,:]> MAX_DIST_X)] = False
+    image_mask[0,:,:][np.where(im_pos_cut_T[0,:,:]< MIN_DIST_X)] = False
+    image_mask[0,:,:][np.where(im_pos_cut_T[1,:,:]< MIN_DIST_Y)] = False
+    image_mask[0,:,:][np.where(im_pos_cut_T[1,:,:]> MAX_DIST_Y)] = False # 1, 498,1224
+
+
+    max_x = MAX_DIST_X
+    min_x = MIN_DIST_X
+    
+    max_y = MAX_DIST_Y
+    min_y = MIN_DIST_Y
+
+    s_x = 2/(max_x-min_x)
+    t_x = -s_x * min_x-1
+
+    s_y = 2/(max_y-min_y)
+    t_y = -s_y * min_y-1
+
+    Normalizing = np.array([[s_x, 0,  t_x],
+                            [0, s_y,  t_y],
+                            [0, 0,    1]])
+
+    switch_xy = np.array([[0,1,0],
+                            [1,0,0],
+                            [0,0,1]])
+    N = switch_xy@Normalizing
+
+    im_pos_cut_T_normalized = np.einsum('ij,jkl->ikl', N, im_pos_cut_T) # 3,498,1224
+    
+    # check_im_pos_normalized = im_pos_cut_T_normalized
+    # check_im_pos_normalized = np.einsum('ijk->jki',check_im_pos_normalized)
+    # check_im_pos_normalized = check_im_pos_normalized[:,:,:2]
+   
+    # check_im_pos_normalized[:,:,:][np.where(image_mask[0,:,:] == False)] = 0
+    # x_max = np.max(check_im_pos_normalized[:,:,0])
+    # y_max = np.max(check_im_pos_normalized[:,:,1])
+
+    # x_min = np.min(check_im_pos_normalized[:,:,0])
+    # y_min = np.min(check_im_pos_normalized[:,:,1])
+    
+
+    new_h, new_w = BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
+
+    K = np.array([[new_w/2-1,     0,          new_w/2],
+                    [0,           -(new_h/2-1),    new_h/2],
+                    [0,           0,          1]])
+
+    im_pos_pixel = np.einsum('ij,jkl->ikl', K, im_pos_cut_T_normalized) # 3,498,1224
+    #same here
+
+    
+    
+    # Test to get the same pixel_pos matrix to match rgb matrix - This is from old method
+    # im_pos_pixel_1 = im_pos_pixel
+    # im_pos_pixel_1 = np.einsum('ijk->jki',im_pos_pixel_1)
+    # im_pos_pixel_1 = im_pos_pixel_1[:,:,:2] #(498, 1224, 2)
+    # points_x = im_pos_pixel_1[:,:,1] #(498, 1224)
+    # points_x = np.transpose(np.array([np.ravel(points_x)])) #(609552, 1)
+    # points_y = im_pos_pixel_1[:,:,0] #(498, 1224)
+    # points_y = np.transpose(np.array([np.ravel(points_y)])) #(609552, 1)
+    # points = np.concatenate((points_x,points_y), axis=1) #(609552, 2)
+
+    im_pos_pixel = np.einsum('ij,jkl->ikl', switch_xy, im_pos_pixel) # 3,498,1224
+    im_pos_pixel = im_pos_pixel[:2,:,:] # 2,498,1224
+    im_pos_pixel = np.einsum('ijk->jki',im_pos_pixel)
+    im_pos_pixel_2_col = np.reshape(im_pos_pixel,(np.shape(im_pos_pixel)[0]*np.shape(im_pos_pixel)[1], 2)) # 609552, 2
+
+    image_mask_1_col = np.reshape(image_mask,(np.shape(im_pos_pixel_2_col)[0],1)) #(609552, 1)
+    image_mask_2_col_stack = np.column_stack((image_mask_1_col,image_mask_1_col)) # (609552, 2)
+    image_mask_3_col_stack = np.column_stack((image_mask_1_col,image_mask_1_col,image_mask_1_col)) # (609552, 3)
+
+    # im_pos_pixel = np.einsum('ijk->jk',im_pos_pixel)
+    # image_mask = np.einsum('ijk->jk', image_mask)
+    
+    # true_count = np.count_nonzero(image_mask_2_col_stack[:,0]==True)
+
+    im_pos_true = im_pos_pixel_2_col[np.all(image_mask_2_col_stack==True, axis=1)] #(499350, 2)
+    
+    
+    # im_rgb = img_undistorted[row_cut_off:,:] #(498, 1224, 3)
+    # im_rgb_T = np.reshape(im_rgb,(np.shape(im_pos_pixel_2_col)[0], 3)) #(609552, 3)
+    # im_rgb_true = im_rgb_T[np.all(image_mask_3_col_stack==True, axis=1)] # (499350, 3)
+
+
+
+    # im = img_undistorted[row_cut_off:,:,:]
+    # image_mask = np.einsum('ijk->jk', image_mask)
+    # im[:,:,:][np.where(image_mask==False)] = np.array([0,0,0])
+
+    # im = np.delete(im,np.where(image_mask==False),axis=0)
+    # im = np.reshape(im,(np.shape(im_pos_pixel)[0], 3))
+    # print(im==im_rgb_true)
+    # plt.figure()
+    # plt.imshow(im)
+    # plt.show()
+    return image_mask_3_col_stack, im_pos_true.astype(int)
+    
+
+def calculate_rgb_matrix_for_BEW(img_undistorted: np.array, image_mask: np.array):
+    im_rgb = img_undistorted[ROW_CUTOFF:,:] #(498, 1224, 3)
+    im_rgb_T = np.reshape(im_rgb,(np.shape(image_mask)[0], 3)) #(609552, 3)
+    im_rgb_true = im_rgb_T[np.all(image_mask==True, axis=1)] # (499350, 3)
+    
+    return im_rgb_true

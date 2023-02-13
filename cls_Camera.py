@@ -1,7 +1,8 @@
 import numpy as np
 from config import BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
 from file_handling import mA2_frame_yaml_to_rotation_translation_vec, camera_name_calib_yaml_to_K_D
-from calculate_bew_data import calculate_im_pos
+from calculate_bew_data import calculate_BEW_points_and_mask, calculate_im_pos
+from get_black_fill_pos_rgb import im_mask_walls
 
 
 
@@ -27,17 +28,9 @@ class Camera:
                                            self.camera_rotation, 
                                            self.camera_translation, 
                                            self.name)
+        self._wall_mask = im_mask_walls(name)
+        self._image_mask, self._pixel_positions_masked = calculate_BEW_points_and_mask(self.pixel_positions, self.wall_mask)
         
-
-    def update_camera_roation_and_translation(self, dict):
-        camera_key = 'eo_'+ self.name.lower()
-
-        rotation = np.array(dict[camera_key]['static_transform']['rotation'])
-        translation = np.array([dict[camera_key]['static_transform']['translation']])
-
-        self._camera_rotation = rotation
-        self._camera_translation = translation
-
 
     @property
     def name(self):
@@ -63,3 +56,13 @@ class Camera:
     @property
     def pixel_positions(self):
         return self._pixel_positions    
+    @property
+    def wall_mask(self):
+        return self._wall_mask
+    @property
+    def image_mask(self):
+        return self._image_mask
+    @property
+    def pixel_positions_masked(self):
+        return self._pixel_positions_masked 
+

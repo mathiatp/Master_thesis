@@ -11,8 +11,7 @@ import scipy
 from yaml.loader import SafeLoader
 from cls_mA2 import mA2
 from cls_Camera import Camera
-from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation, interpolate, interp_weights
-from get_black_fill_pos_rgb import get_black_pixel_pos_and_rgb
+from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation,calculate_rgb_matrix_for_BEW, interp_weights, interpolate
 from config import BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
 import cProfile
 import pstats
@@ -39,25 +38,47 @@ def individual_color_interpolation_mp(args):
 
 def make_BEW(vessel_mA2: mA2):
     start = time.time()
-    points_fp_f, rgb_fp_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fp_f.camera_rotation, vessel_mA2.fp_f.pixel_positions, vessel_mA2.fp_f.im)
-    points_fs_f, rgb_fs_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_f.camera_rotation, vessel_mA2.fs_f.pixel_positions, vessel_mA2.fs_f.im)
-    points_fs_s, rgb_fs_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_s.camera_rotation, vessel_mA2.fs_s.pixel_positions, vessel_mA2.fs_s.im)
-    points_ap_p, rgb_ap_p = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_p.camera_rotation, vessel_mA2.ap_p.pixel_positions, vessel_mA2.ap_p.im)
-    points_ap_a, rgb_ap_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_a.camera_rotation, vessel_mA2.ap_a.pixel_positions, vessel_mA2.ap_a.im)
-    points_as_a, rgb_as_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_a.camera_rotation, vessel_mA2.as_a.pixel_positions, vessel_mA2.as_a.im)
-    points_as_s, rgb_as_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_s.camera_rotation, vessel_mA2.as_s.pixel_positions, vessel_mA2.as_s.im)
+    # points_fs_f_1, rgb_fs_f_1 = calculate_BEW_points(vessel_mA2.fs_f.pixel_positions, vessel_mA2.fs_f.im)
+
+    # points_fp_f, rgb_fp_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fp_f.pixel_positions, vessel_mA2.fp_f.im)
+    # points_fs_f, rgb_fs_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_f.pixel_positions, vessel_mA2.fs_f.im)
+    # points_fs_s, rgb_fs_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_s.pixel_positions, vessel_mA2.fs_s.im)
+    # points_ap_p, rgb_ap_p = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_p.pixel_positions, vessel_mA2.ap_p.im)
+    # points_ap_a, rgb_ap_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_a.pixel_positions, vessel_mA2.ap_a.im)
+    # points_as_a, rgb_as_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_a.pixel_positions, vessel_mA2.as_a.im)
+    # points_as_s, rgb_as_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_s.pixel_positions, vessel_mA2.as_s.im)
     
+    # print(points_fs_f == points_fs_f_1)
+
+
     grid_x,grid_y = np.meshgrid(range(BEW_IMAGE_HEIGHT), range(BEW_IMAGE_WIDTH), indexing='ij')
 
-    points = np.vstack((points_fp_f,
-                        points_fs_f,
-                        points_fs_s, 
-                        points_ap_p, 
-                        points_ap_a,
-                        points_as_a,
-                        points_as_s,
+    # points = np.vstack((points_fp_f,
+    #                     points_fs_f,
+    #                     points_fs_s, 
+    #                     points_ap_p, 
+    #                     points_ap_a,
+    #                     points_as_a,
+    #                     points_as_s,
+    #                     vessel_mA2.black_pixel_pos))
+
+    points = np.vstack((vessel_mA2.fp_f.pixel_positions_masked,
+                        vessel_mA2.fs_f.pixel_positions_masked,
+                        vessel_mA2.fs_s.pixel_positions_masked,
+                        vessel_mA2.ap_p.pixel_positions_masked,
+                        vessel_mA2.ap_a.pixel_positions_masked,
+                        vessel_mA2.as_a.pixel_positions_masked,
+                        vessel_mA2.as_s.pixel_positions_masked,
                         vessel_mA2.black_pixel_pos))
     # np.save('points.npy',points)
+
+    rgb_fp_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_f.im,vessel_mA2.fp_f.image_mask)
+    rgb_fs_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_f.im,vessel_mA2.fs_f.image_mask) 
+    rgb_fs_s = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_s.im,vessel_mA2.fs_s.image_mask) 
+    rgb_ap_p = calculate_rgb_matrix_for_BEW(vessel_mA2.ap_p.im,vessel_mA2.ap_p.image_mask)
+    rgb_ap_a = calculate_rgb_matrix_for_BEW(vessel_mA2.ap_a.im,vessel_mA2.ap_a.image_mask)
+    rgb_as_a = calculate_rgb_matrix_for_BEW(vessel_mA2.as_a.im,vessel_mA2.as_a.image_mask)
+    rgb_as_s = calculate_rgb_matrix_for_BEW(vessel_mA2.as_s.im,vessel_mA2.as_s.image_mask)
 
     rgb = np.vstack((rgb_fp_f,
                      rgb_fs_f, 
@@ -94,13 +115,13 @@ def make_BEW(vessel_mA2: mA2):
     # return im
 
     # Delaunay 4
-    # xy = points
-    # uv=np.zeros([grid_x.shape[0]*grid_y.shape[1],2])
-    # uv[:,0]=grid_y.flatten()
-    # uv[:,1]=grid_x.flatten()
+    xy = points
+    uv=np.zeros([grid_x.shape[0]*grid_y.shape[1],2])
+    uv[:,0]=grid_y.flatten()
+    uv[:,1]=grid_x.flatten()
     values = rgb
 
-    # Computed once and for all !
+    # # Computed once and for all !
     # vtx, wts = interp_weights(xy, uv)
     # np.save('vtx.npy', vtx)
     # np.save('wts.npy', wts)
@@ -111,8 +132,8 @@ def make_BEW(vessel_mA2: mA2):
     valuesi_r=interpolate(values[:,0].flatten(), vtx, wts)
     valuesi_g=interpolate(values[:,1].flatten(), vtx, wts)
     valuesi_b=interpolate(values[:,2].flatten(), vtx, wts)
-    # end = time.time()
-    # print('Time: ' + str(end-start))
+    end = time.time()
+    print('Time: ' + str(end-start))
 
     valuesi_r = valuesi_r.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
     valuesi_r = valuesi_r.astype(np.uint8)
@@ -120,8 +141,6 @@ def make_BEW(vessel_mA2: mA2):
     valuesi_g= valuesi_g.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
     valuesi_g = valuesi_g.astype(np.uint8)
     
-    
-
     valuesi_b= valuesi_b.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
     valuesi_b = valuesi_b.astype(np.uint8)
  
@@ -132,7 +151,7 @@ def make_BEW(vessel_mA2: mA2):
 
 
     # Griddata
-    # grid_z0 = griddata(points, rgb[:], (grid_x, grid_y), method='nearest')
+    # grid_z0 = griddata(points, rgb, (grid_x, grid_y), method='nearest')
     # grid_z0[np.where(np.isnan(grid_z0))] = 0
     # grid_z0 = grid_z0[:,:,:].astype(np.uint8)
     # end = time.time()
@@ -202,6 +221,7 @@ def main():
                 
             if(id =='rgb_cam_fp_f'):
                 vessel_mA2.fp_f._im = cv2.undistort(img,vessel_mA2.fp_f.K,vessel_mA2.fp_f.D)
+                
      
             elif(id =='rgb_cam_fs_f'):
                 vessel_mA2.fs_f._im = cv2.undistort(img,vessel_mA2.fs_f.K,vessel_mA2.fs_f.D)
@@ -230,7 +250,7 @@ def main():
 
             # plt.figure('Img_distorted')
             # plt.imshow(img)
-                # plt.imsave('First 360 view_7_cameras.png', img_bew)
+                # plt.imsave('BEW_main_func_1_frame_1500x1500px_step_1_restructure.png', img_bew)
                 # plt.figure('Img_undistorted_as_a')
                 # plt.imshow(vessel_mA2.as_a.im)
                 # plt.figure('BEW')
@@ -250,4 +270,4 @@ if __name__ == '__main__':
     with cProfile.Profile() as pr:
         main()
     stats = pstats.Stats(pr)
-    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_nearest_pre_calc_we.prof')
+    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_step_1_restructur.prof')

@@ -1,4 +1,4 @@
-from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation
+from calculate_bew_data import calculate_BEW_points_and_mask, calculate_BEW_points_and_rgb_for_interpolation
 from cls_Camera import Camera
 from get_black_fill_pos_rgb import get_black_pixel_pos_and_rgb
 import numpy as np
@@ -27,20 +27,20 @@ class mA2:
         # self._delaunay = self.init_delaunay()
 
     def init_delaunay(self):
-        points_fp_f, _ = calculate_BEW_points_and_rgb_for_interpolation(self.fp_f.camera_rotation, self.fp_f.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fp_f.png'))
-        points_fs_f, _ = calculate_BEW_points_and_rgb_for_interpolation(self.fs_f.camera_rotation, self.fs_f.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fs_f.png'))
-        points_fs_s, _ = calculate_BEW_points_and_rgb_for_interpolation(self.fs_s.camera_rotation, self.fs_s.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fs_s.png'))
-        points_ap_p, _ = calculate_BEW_points_and_rgb_for_interpolation(self.ap_p.camera_rotation, self.ap_p.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_ap_p.png'))
-        points_ap_a, _ = calculate_BEW_points_and_rgb_for_interpolation(self.ap_a.camera_rotation, self.ap_a.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_ap_a.png'))
-        points_as_a, _ = calculate_BEW_points_and_rgb_for_interpolation(self.as_a.camera_rotation, self.as_a.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_as_a.png'))
-        points_as_s, _ = calculate_BEW_points_and_rgb_for_interpolation(self.as_s.camera_rotation, self.as_s.pixel_positions, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_as_s.png'))
-        points = np.vstack((points_fp_f,
-                            points_fs_f,
-                            points_fs_s, 
-                            points_ap_p, 
-                            points_ap_a,
-                            points_as_a,
-                            points_as_s,
+        # points_fp_f, _ = calculate_BEW_points_and_mask(self.fp_f.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fp_f.png'))
+        # points_fs_f, _ = calculate_BEW_points_and_mask(self.fs_f.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fs_f.png'))
+        # points_fs_s, _ = calculate_BEW_points_and_mask(self.fs_s.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fs_s.png'))
+        # points_ap_p, _ = calculate_BEW_points_and_mask(self.ap_p.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_ap_p.png'))
+        # points_ap_a, _ = calculate_BEW_points_and_mask(self.ap_a.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_ap_a.png'))
+        # points_as_a, _ = calculate_BEW_points_and_mask(self.as_a.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_as_a.png'))
+        # points_as_s, _ = calculate_BEW_points_and_mask(self.as_s.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_as_s.png'))
+        points = np.vstack((self.fp_f.pixel_positions_masked,
+                            self.fs_f.pixel_positions_masked,
+                            self.fs_s.pixel_positions_masked,
+                            self.ap_p.pixel_positions_masked,
+                            self.ap_a.pixel_positions_masked,
+                            self.as_a.pixel_positions_masked,
+                            self.as_s.pixel_positions_masked,
                             self.black_pixel_pos))
         
         return Delaunay(points)
