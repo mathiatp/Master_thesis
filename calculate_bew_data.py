@@ -1,8 +1,10 @@
 import numpy as np
 import cv2
+# from cls_Camera import Camera
 from config import MAX_DIST_X, MIN_DIST_X, MAX_DIST_Y, MIN_DIST_Y, BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH, ROW_CUTOFF
 from scipy.interpolate import griddata
 from scipy.spatial import Delaunay
+from geometry import check_if_point_inside_triangle
 from get_black_fill_pos_rgb import im_mask_walls
 import matplotlib.pyplot as plt
 
@@ -201,8 +203,8 @@ def calculate_BEW_points_and_mask(img_pos: np.array, wall_mask: np.array):
                             [1,0,0],
                             [0,0,1]])
     N = switch_xy@Normalizing
-
-    im_pos_cut_T_normalized = np.einsum('ij,jkl->ikl', N, im_pos_cut_T) # 3,498,1224
+    im_pos_cut_T = np.einsum('ij,jkl->ikl', switch_xy, im_pos_cut_T)
+    im_pos_cut_T_normalized = np.einsum('ij,jkl->ikl', Normalizing, im_pos_cut_T) # 3,498,1224
     
     # check_im_pos_normalized = im_pos_cut_T_normalized
     # check_im_pos_normalized = np.einsum('ijk->jki',check_im_pos_normalized)
@@ -222,11 +224,14 @@ def calculate_BEW_points_and_mask(img_pos: np.array, wall_mask: np.array):
                     [0,           -(new_h/2-1),    new_h/2],
                     [0,           0,          1]])
 
-    im_pos_pixel = np.einsum('ij,jkl->ikl', K, im_pos_cut_T_normalized) # 3,498,1224
+    im_pos_pixel_I_BEW = np.einsum('ij,jkl->ikl', K, im_pos_cut_T_normalized) # 3,498,1224 dtype=float64
     #same here
-
+    
+    return image_mask, im_pos_pixel_I_BEW
     
     
+    
+    """
     # Test to get the same pixel_pos matrix to match rgb matrix - This is from old method
     # im_pos_pixel_1 = im_pos_pixel
     # im_pos_pixel_1 = np.einsum('ijk->jki',im_pos_pixel_1)
@@ -271,7 +276,62 @@ def calculate_BEW_points_and_mask(img_pos: np.array, wall_mask: np.array):
     # plt.imshow(im)
     # plt.show()
     return image_mask_3_col_stack, im_pos_true.astype(int)
+    """
+def make_final_mask_and_pixel_pos(im_mask, im_pos_pixel, left_triangle, right_triangle):
+    image_mask = im_mask 
     
+    # im_mask = np.einsum('ijk->jk', im_mask)
+    # plt.figure('before triangle')
+    # plt.imshow(im_mask)
+    mask_true_count = np.count_nonzero(im_mask)
+  
+
+    # if (right_triangle is not None):
+    #     image_mask[0,:,:][np.where(im_pos_pixel[0,:,:]> 750)] = False
+    # mask_true_count_after = np.count_nonzero(image_mask)
+    if (right_triangle is not None):
+        for row in range(np.shape(im_pos_pixel)[1]):
+            for col in range(np.shape(im_pos_pixel)[2]):
+                point = np.array([im_pos_pixel[1,row,col],im_pos_pixel[0,row,col]])
+                point_validity = not check_if_point_inside_triangle(point,right_triangle)
+                a = image_mask[0,row,col]
+                check = (image_mask[0,row,col] and point_validity)
+                image_mask[0,row,col] = check
+    # if (left_triangle is not None):
+    #     image_mask[0,:,:][np.where(im_pos_pixel[1,:,:]<left_triangle[0,1])] = False
+    if (left_triangle is not None):
+        for row in range(np.shape(im_pos_pixel)[1]):
+            for col in range(np.shape(im_pos_pixel)[2]):
+                point = np.array([im_pos_pixel[1,row,col], im_pos_pixel[0,row,col]])
+                point_validity = not check_if_point_inside_triangle(point,left_triangle)
+                a = image_mask[0,row,col]
+                check = (image_mask[0,row,col] and point_validity)
+                image_mask[0,row,col] = check
+    mask_true_count_after = np.count_nonzero(image_mask)
+    switch_xy = np.array([[0,1,0],
+                        [1,0,0],
+                        [0,0,1]])
+
+    im_pos_pixel = np.einsum('ij,jkl->ikl', switch_xy, im_pos_pixel) # 3,498,1224
+
+    im_pos_pixel = im_pos_pixel[:2,:,:] # 2,498,1224
+    im_pos_pixel = np.einsum('ijk->jki',im_pos_pixel)
+    im_pos_pixel_2_col = np.reshape(im_pos_pixel,(np.shape(im_pos_pixel)[0]*np.shape(im_pos_pixel)[1], 2)) # 609552, 2
+
+    image_mask_1_col = np.reshape(image_mask,(np.shape(im_pos_pixel_2_col)[0],1)) #(609552, 1)
+    image_mask_2_col_stack = np.column_stack((image_mask_1_col,image_mask_1_col)) # (609552, 2)
+    image_mask_3_col_stack = np.column_stack((image_mask_1_col,image_mask_1_col,image_mask_1_col)) # (609552, 3)
+
+    im_pos_true = im_pos_pixel_2_col[np.all(image_mask_2_col_stack==True, axis=1)] #(499350, 2)
+
+    mask_true_count_after = np.count_nonzero(image_mask_1_col)
+    image_mask_after = np.einsum('ijk->jk', image_mask)
+    # plt.figure('after triangle')
+    # plt.imshow(image_mask_after)
+    # plt.show()
+    
+    
+    return image_mask_3_col_stack, im_pos_true.astype(int)
 
 def calculate_rgb_matrix_for_BEW(img_undistorted: np.array, image_mask: np.array):
     im_rgb = img_undistorted[ROW_CUTOFF:,:] #(498, 1224, 3)
@@ -279,3 +339,5 @@ def calculate_rgb_matrix_for_BEW(img_undistorted: np.array, image_mask: np.array
     im_rgb_true = im_rgb_T[np.all(image_mask==True, axis=1)] # (499350, 3)
     
     return im_rgb_true
+
+

@@ -4,6 +4,7 @@ from get_black_fill_pos_rgb import get_black_pixel_pos_and_rgb
 import numpy as np
 from scipy.spatial import Delaunay
 import cv2
+from geometry import line_segment_intersection
 
 
 class mA2:    
@@ -45,6 +46,108 @@ class mA2:
         
         return Delaunay(points)
 
+    def set_points_in_triangle_between_two_cameras(self,camera_left: Camera, camera_right: Camera):
+        corner_right_furthest = camera_left.corners[3]
+        corner_right_closest = camera_left.corners[2]
+        corner_left_furthest =camera_right.corners[0]
+        corner_left_closest = camera_right.corners[1]
+
+        intersection_point = line_segment_intersection(corner_left_closest,corner_left_furthest,corner_right_closest,corner_right_furthest)
+        mid_point_furthest_line = np.array([(corner_left_furthest[0]+ corner_right_furthest[0])/2,
+                                        (corner_left_furthest[1]+ corner_right_furthest[1])/2])
+
+        camera_right.set_left_triangle(np.array([intersection_point, mid_point_furthest_line, corner_left_furthest]))
+        camera_left.set_right_triangle(np.array([intersection_point, mid_point_furthest_line, corner_right_furthest]))
+        
+    def find_triangle_between_each_cameras(self):
+        # corners = furthest_left,closest_left, closest_right, furthest_right
+        # (y down, x right)
+        # fp_f x fs_f
+        # fp_f_right_furthest = self.fp_f.corners[3]
+        # fp_f_right_closest = self.fp_f.corners[2]
+        # fs_f_left_furthest =self.fs_f.corners[0]
+        # fs_f_left_closest = self.fs_f.corners[1]
+        # fp_f_right_furthest = np.array([1005,0])
+        # fp_f_right_closest = np.array([727,362])
+        # fs_f_left_furthest = np.array([444,0])
+        # fs_f_left_closest = np.array([803,370])
+        # fp_f_right_furthest = np.array([0, 1026])
+        # fp_f_right_closest = np.array([362,727])
+        # fs_f_left_furthest = np.array([0,444])
+        # fs_f_left_closest = np.array([370,803])
+
+        
+        # intersection_point = line_segment_intersection(fs_f_left_closest,fs_f_left_furthest,fp_f_right_closest,fp_f_right_furthest).reshape(2)
+        
+        # mid_point_furthest_line = np.array([(fs_f_left_furthest[0]+ fp_f_right_furthest[0])/2,
+        #                                 (fs_f_left_furthest[1]+ fp_f_right_furthest[1])/2])
+
+        # mid_point_furthest_line_inside_image = line_segment_intersection(intersection_point,mid_point_furthest_line,image_furthest_side[0],image_furthest_side[1]).reshape(2)
+        # fs_f_left_furthest_inside_image = line_segment_intersection(fs_f_left_closest,fs_f_left_furthest,image_furthest_side[0],image_furthest_side[1]).reshape(2)
+        
+        # fp_f_furthest_right_inside_image = line_segment_intersection(fp_f_right_closest,fp_f_right_furthest,image_furthest_side[0],image_furthest_side[1]).reshape(2)
+        # mid_point_furthest_line_inside_image = (np.abs(fs_f_left_furthest_inside_image)+np.abs(fp_f_furthest_right_inside_image))/2
+
+        # self.fs_f.set_left_triangle(np.array([intersection_point, mid_point_furthest_line, fs_f_left_furthest]))
+        # self.fp_f.set_right_triangle(np.array([intersection_point, mid_point_furthest_line, fp_f_right_furthest]))
+        
+        # fs_f x fs_s #
+
+        self.set_points_in_triangle_between_two_cameras(self.fp_f, self.fs_f)
+        self.set_points_in_triangle_between_two_cameras(self.fs_f, self.fs_s)
+        # self.set_points_in_triangle_between_two_cameras(self.ap_p, self.ap_a)
+        self.set_points_in_triangle_between_two_cameras(self.ap_a, self.as_a)    
+        # self.set_points_in_triangle_between_two_cameras(self.ap_a, self.as_s)
+
+        # ap_p x ap_a
+        # ap_p_right_furthest = self.ap_p.corners[3]
+        # ap_p_right_closest = self.ap_p.corners[2]
+        # ap_a_left_furthest =self.ap_a.corners[0]
+        # ap_a_left_closest = self.ap_a.corners[1]
+        ap_p_right_furthest = np.array([2000,700])
+        ap_p_right_closest = np.array([1121,620])
+        ap_a_left_furthest =np.array([1900,-500])
+        ap_a_left_closest = np.array([1130,630])
+
+        intersection_point = line_segment_intersection(ap_a_left_closest,ap_a_left_furthest,ap_p_right_closest,ap_p_right_furthest)
+        mid_point_furthest_line = np.array([(ap_a_left_furthest[0]+ ap_p_right_furthest[0])/2,
+                                        (ap_a_left_furthest[1]+ ap_p_right_furthest[1])/2])
+
+        self.ap_a.set_left_triangle(np.array([intersection_point, mid_point_furthest_line, ap_a_left_furthest]))
+        self.ap_p.set_right_triangle(np.array([intersection_point, mid_point_furthest_line, ap_p_right_furthest]))
+
+        # as_a x as_s #
+        # as_a_right_furthest = self.as_a.corners[3]
+        # as_a_right_closest = self.as_a.corners[2]
+        # as_s_left_furthest =self.as_s.corners[0]
+        # as_s_left_closest = self.as_s.corners[1]
+        as_a_right_furthest = np.array([1500,1500])
+        as_a_right_closest = np.array([1120,870])
+        as_s_left_furthest =np.array([1500,992])
+        as_s_left_closest = np.array([1100,880])
+
+        intersection_point = line_segment_intersection(as_s_left_furthest,as_s_left_closest,as_a_right_closest,as_a_right_furthest)
+        mid_point_furthest_line = np.array([(as_s_left_furthest[0]+ as_a_right_furthest[0])/2,
+                                        (as_s_left_furthest[1]+ as_a_right_furthest[1])/2])
+
+        self.as_s.set_left_triangle(np.array([intersection_point, mid_point_furthest_line, as_s_left_furthest]))
+        self.as_a.set_right_triangle(np.array([intersection_point, mid_point_furthest_line, as_a_right_furthest]))
+
+        # ap_a_right_furthest = self.ap_a.corners[3]
+        # ap_a_right_closest = self.ap_a.corners[2]
+        # as_a_left_furthest =self.as_a.corners[0]
+        # as_a_left_closest = self.as_a.corners[1]
+
+
+        # intersection_point_a = line_segment_intersection(as_a_left_furthest, as_a_left_closest, ap_a_right_furthest,ap_a_right_closest)
+        # mid_point_furthest_line_a = np.array([(as_a_left_furthest[0]+ ap_a_right_furthest[0])/2,
+        #                                      (as_a_left_furthest[1]+ ap_a_right_furthest[1])/2])
+
+        # self.as_a.set_left_triangle(np.array([intersection_point_a, mid_point_furthest_line_a, as_a_left_furthest]))
+        # self.ap_a.set_right_triangle(np.array([intersection_point_a, mid_point_furthest_line_a, ap_a_right_furthest]))
+
+
+        
     @property
     def fp_f(self):
         return self._fp_f
