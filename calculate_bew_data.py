@@ -8,6 +8,7 @@ from scipy.spatial import Delaunay
 from geometry import check_if_point_inside_triangle
 # from get_black_fill_pos_rgb import im_mask_walls
 # import matplotlib.pyplot as plt
+import time
 
 def georeference_point_eq(intrinsic_matrix: np.ndarray,
                             image_points: np.ndarray,
@@ -59,7 +60,20 @@ def interp_weights(xy, uv,d=2):
     return vertices, np.hstack((bary, 1 - bary.sum(axis=1, keepdims=True)))
 
 def interpolate(values, vtx, wts):
-    return np.einsum('nj,nj->n', np.take(values, vtx), wts)
+    st = time.time()
+    lhs_take = np.take(values,vtx)
+    et = time.time()
+    time_take = et-st
+    # print('np.take() time:'+str(et-st))
+
+    st = time.time()
+    lhs_arr_index = values[vtx]
+    et = time.time()
+    time_arr_index = et-st
+    # print('Array indexing time:'+str(et-st))
+
+
+    return np.einsum('nj,nj->n', np.take(values, vtx), wts), np.array([time_take, time_arr_index])
 
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:

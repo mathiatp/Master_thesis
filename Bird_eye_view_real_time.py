@@ -54,7 +54,7 @@ def make_BEW(vessel_mA2: mA2):
     # points_fs_s, rgb_fs_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_s.pixel_positions, vessel_mA2.fs_s.im)
     # points_ap_p, rgb_ap_p = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_p.pixel_positions, vessel_mA2.ap_p.im)
     # points_ap_a, rgb_ap_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_a.pixel_positions, vessel_mA2.ap_a.im)
-    # points_as_a, rgb_as_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_a.pixel_positions, vessel_mA2.as_a.im)
+    # points_as_a, rgb_as_a = calculeg punktet hvor mer optimalisering i Python begynner å bli vanskelig uten bruate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_a.pixel_positions, vessel_mA2.as_a.im)
     # points_as_s, rgb_as_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_s.pixel_positions, vessel_mA2.as_s.im)
     
     # print(points_fs_f == points_fs_f_1)
@@ -111,7 +111,7 @@ def make_BEW(vessel_mA2: mA2):
     # input_for_mp = [[grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0],0],
     #                 [grid_x,grid_y,vessel_mA2.delaunay,rgb[:,1],1],
     #                 [grid_x,grid_y,vessel_mA2.delaunay,rgb[:,2],2]]
-    
+
     # Delaunay 2
     # red = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0])
     # green = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,1])
@@ -132,6 +132,7 @@ def make_BEW(vessel_mA2: mA2):
     uv[:,0]=grid_y.flatten()
     uv[:,1]=grid_x.flatten()
     values = rgb
+    # np.save('values.npy', values)
 
     # # Computed once and for all !
     # vtx, wts = interp_weights(xy, uv)
@@ -141,10 +142,10 @@ def make_BEW(vessel_mA2: mA2):
     vtx = np.load('vtx.npy')
     wts = np.load('wts.npy')
     start = time.time()
-    valuesi_r=interpolate(values[:,0].flatten(), vtx, wts)
-    valuesi_g=interpolate(values[:,1].flatten(), vtx, wts)
-    valuesi_b=interpolate(values[:,2].flatten(), vtx, wts)
-
+    valuesi_r, time_r=interpolate(values[:,0].flatten(), vtx, wts)
+    valuesi_g, time_g=interpolate(values[:,1].flatten(), vtx, wts)
+    valuesi_b, time_b=interpolate(values[:,2].flatten(), vtx, wts)
+    time_take_arr_index = np.vstack((time_r, time_g, time_b))
 
     valuesi_r = valuesi_r.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
     valuesi_r = valuesi_r.astype(np.uint8)
@@ -158,7 +159,7 @@ def make_BEW(vessel_mA2: mA2):
     im = np.dstack((valuesi_r,valuesi_g,valuesi_b))
     end = time.time()
     print('Time: ' + str(end-start))
-    return im
+    return im, time_take_arr_index
 
 
     # Griddata
@@ -249,7 +250,7 @@ def main():
     # fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
     # writer = cv2.VideoWriter(video_file_path, fourcc, 5, (BEW_IMAGE_WIDTH, BEW_IMAGE_HEIGHT))
-
+    time_take_arr_index = np.array([[0,0]])
 
     # create reader instance and open for reading
     with Reader(file_path) as reader:
@@ -298,7 +299,8 @@ def main():
             
             if (image_count %8 == 0 and image_count > 20): # 11500 for image for thesis
                 print('Making BEW')
-                img_bew = make_BEW(vessel_mA2)
+                img_bew, time = make_BEW(vessel_mA2)
+                time_take_arr_index = np.vstack((time_take_arr_index,time))
                 # writer.write(cv2.cvtColor(img_bew, cv2.COLOR_BGR2RGB))
                 frame = frame + 1
                 
@@ -312,8 +314,10 @@ def main():
                 # plt.figure('BEW')
                 # plt.imshow(img_bew)
                 # plt.show()
-            if (frame >=10):
+            if (frame >=1): 
                 break
+    # time_take_arr_index = np.delete(time_take_arr_index,0, 0) 
+    # np.save('time_take_arr_index.npy', time_take_arr_index)
     # writer.release()         
             
 

@@ -14,3 +14,5 @@ error_analysis.py
 rosbag_api.py
 dask_griddata.py
 test_dask_Bird_eye_view_real_time.py
+vtx.npy
+wts.npy
