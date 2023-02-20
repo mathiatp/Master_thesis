@@ -47,25 +47,26 @@ class Camera:
         self._pixel_positions_masked = pixel_positions_masked
 
     def find_corner_points(self, pixel_pos: np.array):
+        # (y down, x right)
         if(self.name[8] == 'f'):
-            furthest_left = np.array([pixel_pos[1,0,0]-1,pixel_pos[0,0,0]]).transpose()
+            furthest_left = np.array([pixel_pos[1,0,0],pixel_pos[0,0,0]-5]).transpose()
 
             closest_left = np.array([pixel_pos[1,-1,0],pixel_pos[0,-1,0]]).transpose()
 
             closest_right = np.array([pixel_pos[1,-1,-1],pixel_pos[0,-1,-1]]).transpose()
 
-            furthest_right = np.array([pixel_pos[1,0,-1]+1,pixel_pos[0,0,-1]]).transpose()
+            furthest_right = np.array([pixel_pos[1,0,-1],pixel_pos[0,0,-1]+5]).transpose()
 
             
         elif(self.name[8]== 'a'):
             # Neede so x-value is correct from left to right. The same as forwards facing cameras
-            furthest_left = np.array([pixel_pos[1,0,0],pixel_pos[0,0,-1]-50]).transpose()
+            furthest_left = np.array([pixel_pos[1,0,0],pixel_pos[0,0,-1]]).transpose()
 
             closest_left = np.array([pixel_pos[1,-1,0],pixel_pos[0,-1,-1]]).transpose()
 
             closest_right = np.array([pixel_pos[1,-1,-1],pixel_pos[0,-1,0]]).transpose()
 
-            furthest_right = np.array([pixel_pos[1,0,-1],pixel_pos[0,0,0]+50]).transpose()
+            furthest_right = np.array([pixel_pos[1,0,-1],pixel_pos[0,0,0]]).transpose()
 
             
 
@@ -73,51 +74,6 @@ class Camera:
         
         corners = np.array([furthest_left,closest_left,closest_right, furthest_right])
         return corners
-        # pixel_pos_corners = np.array([[[][]],
-        #                               [[][]]])
-        # return pixel_pos_corners
-        # pixel_pos = self.pixel_positions[ROW_CUTOFF:,:,:2]
-        # pixel_pos = np.einsum('ijk->kij',pixel_pos) # 2,498,1224
-        
-
-
-        # # # pixel_pos[np.where(pixel_pos[:,:,:2]>100)] = 100
-        # # # pixel_pos[np.where(pixel_pos[:,:,:2]<-100)] = -100
-        # # min = np.min(pixel_pos[:,:,1])
-        # # # pixel_pos[:,:,1] = pixel_pos[:,:,1]+np.abs(min)
-        # # max = np.max(pixel_pos[:,:,1])
-        # # # pixel_pos[:,:,1] = pixel_pos[:,:,1]/max*255
-        # # plt.figure(self.name)
-        # # plt.imshow(pixel_pos[:,:,1])
-        
-
-        # if(self.name == 'rgb_cam_fp_f'):
-        #     top = np.max(pixel_pos[0,:,:])
-        #     top_id = np.where(pixel_pos[0,:,:] == np.max(pixel_pos[0,:,:]))
-        #     top_port_id = np.where(pixel_pos[1,top_id[0],:] == np.min(pixel_pos[1,top_id[0],:]))
-        #     top_starboard_id = np.where(pixel_pos[1,top_id[0],:] == np.max(pixel_pos[1,top_id[0],:]))
-
-            
-        #     bot = np.min(pixel_pos[0,:,:])
-        #     bot_id = np.where(pixel_pos[0,:,:] == np.min(pixel_pos[0,:,:]))
-        #     bot_port_id = np.where(pixel_pos[1,bot_id[0],:] == np.min(pixel_pos[1,bot_id[0],:]))
-        #     bot_starboard_id = np.where(pixel_pos[1,bot_id[0],:] == np.max(pixel_pos[1,bot_id[0],:]))
-
-        # if(self.name == 'rgb_cam_fs_s'):
-            
-        #     top = np.max(pixel_pos[0,:,:])
-        #     top_id = np.where(pixel_pos[0,:,:] == np.max(pixel_pos[0,:,:]))
-        #     top_port_id = np.where(pixel_pos[1,top_id[0],:] == np.min(pixel_pos[1,top_id[0],:]))
-        #     top_starboard_id = np.where(pixel_pos[1,top_id[0],:] == np.max(pixel_pos[1,top_id[0],:]))
-
-            
-        #     bot = np.min(pixel_pos[0,:,:])
-        #     bot_id = np.where(pixel_pos[0,:,:] == np.min(pixel_pos[0,:,:]))
-        #     bot_port_id = np.where(pixel_pos[1,bot_id[0],:] == np.min(pixel_pos[1,bot_id[0],:]))
-        #     bot_starboard_id = np.where(pixel_pos[1,bot_id[0],:] == np.max(pixel_pos[1,bot_id[0],:]))
-        #     pass
-        # else:
-        #     print('ERROR: camera name is incorrect')
 
 
 

@@ -5,7 +5,7 @@ IMAGE_HEIGHT = 1000
 BEW_IMAGE_HEIGHT = 1500
 BEW_IMAGE_WIDTH = 1500
 
-ROW_CUTOFF = 556 #526 vanlig #566 for removal of all large numbers
+ROW_CUTOFF = 529 #526 vanlig #566 for removal of all large numbers
 
 MAX_DIST_X =  10 # larger = more view front
 MIN_DIST_X = -10 # larger = more view aft

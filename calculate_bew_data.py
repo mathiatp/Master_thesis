@@ -1,12 +1,13 @@
 import numpy as np
-import cv2
+# import cv2
+from scipy.spatial.transform import Rotation as R
 # from cls_Camera import Camera
 from config import MAX_DIST_X, MIN_DIST_X, MAX_DIST_Y, MIN_DIST_Y, BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH, ROW_CUTOFF
-from scipy.interpolate import griddata
+# from scipy.interpolate import griddata
 from scipy.spatial import Delaunay
 from geometry import check_if_point_inside_triangle
-from get_black_fill_pos_rgb import im_mask_walls
-import matplotlib.pyplot as plt
+# from get_black_fill_pos_rgb import im_mask_walls
+# import matplotlib.pyplot as plt
 
 def georeference_point_eq(intrinsic_matrix: np.ndarray,
                             image_points: np.ndarray,

@@ -15,7 +15,7 @@ from calculate_bew_data import calculate_BEW_points_and_rgb_for_interpolation,ca
 from config import BEW_IMAGE_HEIGHT, BEW_IMAGE_WIDTH
 import cProfile
 import pstats
-import multiprocessing
+# import multiprocessing
 import time
 
 #The main advantage of Python is that there are a number of ways of very easily 
@@ -71,7 +71,8 @@ def make_BEW(vessel_mA2: mA2):
     #                     points_as_s,
     #                     vessel_mA2.black_pixel_pos))
 
-    points = np.vstack((vessel_mA2.fp_f.pixel_positions_masked,
+    points = np.vstack((vessel_mA2.fp_p.pixel_positions_masked,
+                        vessel_mA2.fp_f.pixel_positions_masked,
                         vessel_mA2.fs_f.pixel_positions_masked,
                         vessel_mA2.fs_s.pixel_positions_masked,
                         vessel_mA2.ap_p.pixel_positions_masked,
@@ -81,6 +82,7 @@ def make_BEW(vessel_mA2: mA2):
                         vessel_mA2.black_pixel_pos))
     # np.save('points.npy',points)
 
+    rgb_fp_p = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_p.im,vessel_mA2.fp_p.image_mask)
     rgb_fp_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_f.im,vessel_mA2.fp_f.image_mask)
     rgb_fs_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_f.im,vessel_mA2.fs_f.image_mask) 
     rgb_fs_s = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_s.im,vessel_mA2.fs_s.image_mask) 
@@ -89,7 +91,8 @@ def make_BEW(vessel_mA2: mA2):
     rgb_as_a = calculate_rgb_matrix_for_BEW(vessel_mA2.as_a.im,vessel_mA2.as_a.image_mask)
     rgb_as_s = calculate_rgb_matrix_for_BEW(vessel_mA2.as_s.im,vessel_mA2.as_s.image_mask)
 
-    rgb = np.vstack((rgb_fp_f,
+    rgb = np.vstack((rgb_fp_p,
+                     rgb_fp_f,
                      rgb_fs_f, 
                      rgb_fs_s, 
                      rgb_ap_p, 
@@ -131,12 +134,12 @@ def make_BEW(vessel_mA2: mA2):
     values = rgb
 
     # # Computed once and for all !
-    vtx, wts = interp_weights(xy, uv)
-    # # np.save('vtx.npy', vtx)
-    # # np.save('wts.npy', wts)
+    # vtx, wts = interp_weights(xy, uv)
+    # np.save('vtx.npy', vtx)
+    # np.save('wts.npy', wts)
 
-    # vtx = np.load('vtx.npy')
-    # wts = np.load('wts.npy')
+    vtx = np.load('vtx.npy')
+    wts = np.load('wts.npy')
     start = time.time()
     valuesi_r=interpolate(values[:,0].flatten(), vtx, wts)
     valuesi_g=interpolate(values[:,1].flatten(), vtx, wts)
@@ -169,6 +172,7 @@ def make_BEW(vessel_mA2: mA2):
 
 
 def init_mA2():
+    # print('Cores:'+str(multiprocessing.cpu_count())) = 12
     # print(scipy.__version__) 1.9.1
     # topic_names = ['/rgb_cam_fp_p/image_raw',
     #                '/rgb_cam_fs_f/image_raw',
@@ -178,7 +182,7 @@ def init_mA2():
     #                '/rgb_cam_as_a/image_raw',
     #                '/rgb_cam_as_s/image_raw']
                    # Missing '/rgb_cam_fp_p/image_raw' in rosbag2...80
-
+    camera_fp_p = Camera('rgb_cam_fp_p')
     camera_fp_f = Camera('rgb_cam_fp_f')
     camera_fs_f = Camera('rgb_cam_fs_f')
     camera_fs_s = Camera('rgb_cam_fs_s')
@@ -186,7 +190,7 @@ def init_mA2():
     camera_ap_a = Camera('rgb_cam_ap_a')
     camera_as_f = Camera('rgb_cam_as_a')
     camera_as_s = Camera('rgb_cam_as_s')
-    vessel_mA2 = mA2(camera_fp_f,camera_fs_f,camera_fs_s,camera_ap_p,camera_ap_a,camera_as_f,camera_as_s)
+    vessel_mA2 = mA2(camera_fp_p,camera_fp_f,camera_fs_f,camera_fs_s,camera_ap_p,camera_ap_a,camera_as_f,camera_as_s)
 
     return vessel_mA2
 
@@ -194,6 +198,10 @@ def init_mA2():
 def main():
     vessel_mA2 = init_mA2()
     vessel_mA2.find_triangle_between_each_cameras()
+
+    image_mask, pixel_pos_masked =make_final_mask_and_pixel_pos(vessel_mA2.fp_p.wall_dist_mask, vessel_mA2.fp_p.pixel_positions_I_BEW, vessel_mA2.fp_p.left_triangle, vessel_mA2.fp_p.right_triangle)
+    vessel_mA2.fp_p.set_image_mask(image_mask)
+    vessel_mA2.fp_p.set_pixel_positions_masked(pixel_pos_masked)
 
     image_mask, pixel_pos_masked =make_final_mask_and_pixel_pos(vessel_mA2.fp_f.wall_dist_mask, vessel_mA2.fp_f.pixel_positions_I_BEW, vessel_mA2.fp_f.left_triangle, vessel_mA2.fp_f.right_triangle)
     vessel_mA2.fp_f.set_image_mask(image_mask)
@@ -223,17 +231,11 @@ def main():
     vessel_mA2.as_s.set_image_mask(image_mask)
     vessel_mA2.as_s.set_pixel_positions_masked(pixel_pos_masked)  
 
-
-
-
-
-    # print('Cores:'+str(multiprocessing.cpu_count())) = 12
     
-    file_path = "/home/mathias/Documents/Master_Thesis/Rosbags/rosbag2_2022_10_09-08_02_54_80/"
+    file_path = "/home/mathias/Documents/Master_Thesis/Rosbags/rosbag2_2022_10_06-13_50_07_0"
 
-    topic_name = '/rgb_cam_fp_p/image_raw'
-
-    topic_names = ['/rgb_cam_fp_f/image_raw',
+    topic_names = ['/rgb_cam_fp_p/image_raw',
+                   '/rgb_cam_fp_f/image_raw',
                    '/rgb_cam_fs_f/image_raw',
                    '/rgb_cam_fs_s/image_raw',
                    '/rgb_cam_ap_p/image_raw', 
@@ -242,8 +244,8 @@ def main():
                    '/rgb_cam_as_s/image_raw']
     image_count = 0
     frame = 0
-    # video_file_path = "./Video/BEW_restrcture_step1.mp4"
-    # # fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+    # video_file_path = "./Video/BEW_restrcture_step3_1st.mp4"
+    # fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     # fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
     # writer = cv2.VideoWriter(video_file_path, fourcc, 5, (BEW_IMAGE_WIDTH, BEW_IMAGE_HEIGHT))
@@ -266,8 +268,11 @@ def main():
             # plt.figure('Img_distorted')
             # plt.imshow(img)
             # plt.show()
-                
-            if(id =='rgb_cam_fp_f'):
+
+            if(id =='rgb_cam_fp_p'):
+                vessel_mA2.fp_p._im = cv2.undistort(img,vessel_mA2.fp_p.K,vessel_mA2.fp_p.D)
+
+            elif(id =='rgb_cam_fp_f'):
                 vessel_mA2.fp_f._im = cv2.undistort(img,vessel_mA2.fp_f.K,vessel_mA2.fp_f.D)
                 
      
@@ -291,22 +296,23 @@ def main():
 
             image_count = image_count + 1
             
-            if image_count %8 == 0:
+            if (image_count %8 == 0 and image_count > 20): # 11500 for image for thesis
                 print('Making BEW')
                 img_bew = make_BEW(vessel_mA2)
                 # writer.write(cv2.cvtColor(img_bew, cv2.COLOR_BGR2RGB))
                 frame = frame + 1
+                
 
             # plt.figure('Img_distorted')
             # plt.imshow(img)
-                # plt.imsave('BEW_main_func_1_frame_1500x1500px_step_1_restructure_version.png', img_bew)
+                # plt.imsave('Images/Ros2/BEW_main_func_1_frame_1500x1500px_step_3_restructure_all_8_cameras.png', img_bew)
                 # plt.imsave('BEW_step_1_restructure_mask.png', img_bew)
                 # plt.figure('Img_undistorted_as_a')
                 # plt.imshow(vessel_mA2.as_a.im)
-                plt.figure('BEW')
-                plt.imshow(img_bew)
-                plt.show()
-            if frame >=1:
+                # plt.figure('BEW')
+                # plt.imshow(img_bew)
+                # plt.show()
+            if (frame >=10):
                 break
     # writer.release()         
             
@@ -321,4 +327,4 @@ if __name__ == '__main__':
     with cProfile.Profile() as pr:
         main()
     stats = pstats.Stats(pr)
-    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_step_1_restructur.prof')
+    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_10_frame_1500x1500px_step_3_restructur.prof')
