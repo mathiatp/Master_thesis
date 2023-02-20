@@ -59,7 +59,8 @@ def interp_weights(xy, uv,d=2):
     return vertices, np.hstack((bary, 1 - bary.sum(axis=1, keepdims=True)))
 
 def interpolate(values, vtx, wts):
-    return np.einsum('nj,nj->n', np.take(values, vtx), wts)
+    values_id = values[vtx]
+    return np.einsum('nj,nj->n', values_id, wts)
 
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:
