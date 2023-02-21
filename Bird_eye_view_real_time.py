@@ -38,38 +38,8 @@ def individual_color_interpolation_mp(args):
 
 def make_BEW(vessel_mA2: mA2):
     start = time.time()
-    # vessel_mA2.fp_f.find_corner_points()
-    # vessel_mA2.fs_f.find_corner_points()
-    # vessel_mA2.fs_s.find_corner_points()
-    # vessel_mA2.ap_p.find_corner_points()
-    # vessel_mA2.ap_a.find_corner_points()
-    # vessel_mA2.as_a.find_corner_points()
-    # vessel_mA2.as_s.find_corner_points()
-    # plt.show()
-
-    # points_fs_f_1, rgb_fs_f_1 = calculate_BEW_points(vessel_mA2.fs_f.pixel_positions, vessel_mA2.fs_f.im)
-
-    # points_fp_f, rgb_fp_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fp_f.pixel_positions, vessel_mA2.fp_f.im)
-    # points_fs_f, rgb_fs_f = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_f.pixel_positions, vessel_mA2.fs_f.im)
-    # points_fs_s, rgb_fs_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.fs_s.pixel_positions, vessel_mA2.fs_s.im)
-    # points_ap_p, rgb_ap_p = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_p.pixel_positions, vessel_mA2.ap_p.im)
-    # points_ap_a, rgb_ap_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.ap_a.pixel_positions, vessel_mA2.ap_a.im)
-    # points_as_a, rgb_as_a = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_a.pixel_positions, vessel_mA2.as_a.im)
-    # points_as_s, rgb_as_s = calculate_BEW_points_and_rgb_for_interpolation(vessel_mA2.as_s.pixel_positions, vessel_mA2.as_s.im)
-    
-    # print(points_fs_f == points_fs_f_1)
-
 
     grid_x,grid_y = np.meshgrid(range(BEW_IMAGE_HEIGHT), range(BEW_IMAGE_WIDTH), indexing='ij')
-
-    # points = np.vstack((points_fp_f,
-    #                     points_fs_f,
-    #                     points_fs_s, 
-    #                     points_ap_p, 
-    #                     points_ap_a,
-    #                     points_as_a,
-    #                     points_as_s,
-    #                     vessel_mA2.black_pixel_pos))
 
     points = np.vstack((vessel_mA2.fp_p.pixel_positions_masked,
                         vessel_mA2.fp_f.pixel_positions_masked,
@@ -80,7 +50,6 @@ def make_BEW(vessel_mA2: mA2):
                         vessel_mA2.as_a.pixel_positions_masked,
                         vessel_mA2.as_s.pixel_positions_masked,
                         vessel_mA2.black_pixel_pos))
-    # np.save('points.npy',points)
 
     rgb_fp_p = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_p.im,vessel_mA2.fp_p.image_mask)
     rgb_fp_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_f.im,vessel_mA2.fp_f.image_mask)
@@ -101,37 +70,36 @@ def make_BEW(vessel_mA2: mA2):
                      rgb_as_s,
                      vessel_mA2.black_pixel_rgb))
 
-    # np.save('rgb.npy',rgb)
-    # # Delaunay 1
-    # interp = NearestNDInterpolator(vessel_mA2.delaunay,rgb)
-    # interp.
-    # im = interp((grid_x, grid_y))
-
-    
-    # input_for_mp = [[grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0],0],
-    #                 [grid_x,grid_y,vessel_mA2.delaunay,rgb[:,1],1],
-    #                 [grid_x,grid_y,vessel_mA2.delaunay,rgb[:,2],2]]
-    
-    # Delaunay 2
-    # red = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,0])
-    # green = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,1])
-    # blue = individual_color_interpolation(grid_x,grid_y,vessel_mA2.delaunay,rgb[:,2])
-    # im = np.dstack((red,green,blue))
-    
-    # Delaunay 3
-    # with multiprocessing.Pool() as pool:
-    #     color = pool.map(individual_color_interpolation_mp,input_for_mp)
-    # im = np.dstack((color[0][0],color[1][0],color[2][0]))
-    # end = time.time()
-    # print('Time: ' + str(end-start))
-    # return im
-
     # Delaunay 4
+    
     xy = points
-    uv=np.zeros([grid_x.shape[0]*grid_y.shape[1],2])
-    uv[:,0]=grid_y.flatten()
-    uv[:,1]=grid_x.flatten()
     values = rgb
+    
+    uv=np.zeros([grid_x.shape[0]*grid_y.shape[1],2])
+    uv1=np.zeros([grid_x.shape[0]*grid_y.shape[1],2])
+    st = time.time()
+    uv1[:,0]=grid_y.flatten()
+    uv1[:,1]=grid_x.flatten()
+
+    val_r_f = values[:,0].flatten()
+    val_g_f = values[:,1].flatten()
+    val_b_f = values[:,2].flatten()
+    et =time.time()
+    time_flatten = et-st
+
+
+    st =time.time()
+    uv[:,0]=grid_y.ravel()
+    uv[:,1]=grid_x.ravel()
+    
+    val_r = values[:,0].ravel()
+    val_g = values[:,1].ravel()
+    val_b = values[:,2].ravel()
+    et = time.time()
+
+    time_ravel = et-st
+    
+
     
     if ((vessel_mA2.vtx is None) or (vessel_mA2.wts is None)):
     # Computed once and for all !
@@ -139,15 +107,17 @@ def make_BEW(vessel_mA2: mA2):
         np.save('vtx.npy', vtx)
         np.save('wts.npy', wts)
         
-    
     vtx = vessel_mA2.vtx
     wts = vessel_mA2.wts
     
-    start = time.time()
-    valuesi_r=interpolate(values[:,0].flatten(), vtx, wts)
-    valuesi_g=interpolate(values[:,1].flatten(), vtx, wts)
-    valuesi_b=interpolate(values[:,2].flatten(), vtx, wts)
-
+    
+    
+    
+    valuesi_r=interpolate(val_r, vtx, wts)
+    valuesi_g=interpolate(val_g, vtx, wts)
+    valuesi_b=interpolate(val_b, vtx, wts)
+    
+    
 
     valuesi_r = valuesi_r.reshape((grid_x.shape[0],grid_x.shape[1]),order='F')
     valuesi_r = valuesi_r.astype(np.uint8)
@@ -161,16 +131,7 @@ def make_BEW(vessel_mA2: mA2):
     im = np.dstack((valuesi_r,valuesi_g,valuesi_b))
     end = time.time()
     print('Time: ' + str((end-start)*1000) + ' ms')
-    return im
-
-
-    # Griddata
-    # grid_z0 = griddata(points, rgb, (grid_x, grid_y), method='nearest')
-    # grid_z0[np.where(np.isnan(grid_z0))] = 0
-    # grid_z0 = grid_z0[:,:,:].astype(np.uint8)
-    # end = time.time()
-    # print('Time: ' + str(end-start))
-    # return grid_z0
+    return im , np.array([time_flatten, time_ravel])
 
 
 
@@ -253,7 +214,7 @@ def main():
 
     # writer = cv2.VideoWriter(video_file_path, fourcc, 5, (BEW_IMAGE_WIDTH, BEW_IMAGE_HEIGHT))
 
-
+    time_flatten_ravel = np.array([[0,0]])
     # create reader instance and open for reading
     with Reader(file_path) as reader:
 
@@ -301,9 +262,10 @@ def main():
             
             if (image_count %8 == 0 and image_count > 20): # 11500 for image for thesis
                 print('Making BEW')
-                img_bew = make_BEW(vessel_mA2)
+                img_bew, time_arr = make_BEW(vessel_mA2)
                 # writer.write(cv2.cvtColor(img_bew, cv2.COLOR_BGR2RGB))
                 frame = frame + 1
+                time_flatten_ravel = np.vstack((time_flatten_ravel,time_arr))
                 
 
             # plt.figure('Img_distorted')
@@ -315,8 +277,11 @@ def main():
                 # plt.figure('BEW')
                 # plt.imshow(img_bew)
                 # plt.show()
-            if (frame >=100):
+            if (frame >=500):
                 break
+
+    time_flatten_ravel = np.delete(time_flatten_ravel, 0,0)
+    np.save('time_flatten_ravel.npy',time_flatten_ravel)
     # writer.release()         
             
 
@@ -330,4 +295,4 @@ if __name__ == '__main__':
     with cProfile.Profile() as pr:
         main()
     stats = pstats.Stats(pr)
-    stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_100_frame_1500x1500px_step_3_3_restructure.prof')
+    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_100_frame_1500x1500px_step_3_3_restructur.prof')
