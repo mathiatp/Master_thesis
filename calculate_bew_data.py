@@ -8,6 +8,8 @@ from scipy.spatial import Delaunay
 from geometry import check_if_point_inside_triangle
 # from get_black_fill_pos_rgb import im_mask_walls
 # import matplotlib.pyplot as plt
+import time
+
 
 def georeference_point_eq(intrinsic_matrix: np.ndarray,
                             image_points: np.ndarray,
@@ -59,8 +61,41 @@ def interp_weights(xy, uv,d=2):
     return vertices, np.hstack((bary, 1 - bary.sum(axis=1, keepdims=True)))
 
 def interpolate(values, vtx, wts):
-    values_id = values[vtx]
-    return np.einsum('nj,nj->n', values_id, wts)
+    # st = time.time()
+    # interp_ein_in_line = np.einsum('nj,nj->n', values[vtx], wts) saktere enn å lage values_id først
+    # et = time.time()
+    # print('ein_in_line time: ' + str((et-st)*1000)+' ms')
+
+
+
+    values_id = values[vtx] # 2250000,3
+
+    # st = time.time()
+    interp_ein = np.einsum('nj,nj->n', values_id, wts) # 2250000, Fastest einsum optimization. This is row-wise dot product
+    # et = time.time()
+    # print('Einsum time: ' + str((et-st)*1000)+'ms')
+
+    # Possible faster method, but definitivly not certain
+    # path = np.einsum_path('nj,nj->n', values_id, wts, optimize='optimal')[0]
+    # st = time.time()
+    # interp_ein = np.einsum('nj,nj->n', values_id, wts, optimize=path)
+    # et = time.time()
+    # print('Einsum_path time: ' + str(et-st))
+
+    
+
+    # st = time.time()
+    # values_pluss = wts*values_id
+    # interp_dot_sum = values_pluss[:,0] + values_pluss[:,1]+values_pluss[:,2]
+    # et = time.time()
+    # print('Dot_sum time: ' + str((et-st)*1000)+'ms')
+
+
+
+    # same = np.allclose(interp_ein, interp_dot_sum)
+
+    
+    return interp_ein
 
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:
@@ -336,10 +371,49 @@ def make_final_mask_and_pixel_pos(im_mask, im_pos_pixel, left_triangle, right_tr
     return image_mask_3_col_stack, im_pos_true.astype(int)
 
 def calculate_rgb_matrix_for_BEW(img_undistorted: np.array, image_mask: np.array):
-    im_rgb = img_undistorted[ROW_CUTOFF:,:] #(498, 1224, 3)
-    im_rgb_T = np.reshape(im_rgb,(np.shape(image_mask)[0], 3)) #(609552, 3)
-    im_rgb_true = im_rgb_T[np.all(image_mask==True, axis=1)] # (499350, 3)
     
-    return im_rgb_true
+
+    im_rgb = img_undistorted[ROW_CUTOFF:,:] #(498, 1224, 3)
+    
+    
+    
+    im_rgb_T = np.reshape(im_rgb,(np.shape(image_mask)[0], 3)) #(609552, 3)
+
+    
+    st = time.time()
+    im_rgb_true = im_rgb_T[np.all(image_mask==True, axis=1)] # (499350, 3)
+    # im_rgb_true_alt = im_rgb_T[image_mask==True]
+    et = time.time()
+    time_np_all = et-st
+    print('np.all time: ' + str((time_np_all)*1000)+'ms')
+    
+    st = time.time()
+    im_rgb_true_alt = im_rgb_T[image_mask==True]
+    im_rgb_true_alt = np.reshape(im_rgb_true_alt,(3,-1),order='F')
+    im_rgb_true_alt_T = im_rgb_true_alt.transpose()
+    et = time.time()
+    time_index_short = et-st
+    print('array alt time: ' + str((time_index_short)*1000)+'ms')
+
+    
+    
+    
+    st = time.time()
+    im_rgb_T22 = im_rgb_T.transpose()
+    im_mask_T22 = image_mask.transpose()
+
+    im_rgb_true2 = im_rgb_T22[im_mask_T22==True]
+    im_rgb_true2 = np.reshape(im_rgb_true2, (3,-1))
+    im_rgb_true2 = im_rgb_true2.transpose()
+    et = time.time()
+    time_index_long = et-st
+    print('array ind time: ' + str((time_index_long)*1000)+'ms\n')
+
+
+    # same = np.allclose(im_rgb_true,im_rgb_true_alt_T)
+
+    time_arr = np.array([time_np_all,time_index_short, time_index_long])
+
+    return im_rgb_true2, time_arr
 
 

@@ -82,14 +82,14 @@ def make_BEW(vessel_mA2: mA2):
                         vessel_mA2.black_pixel_pos))
     # np.save('points.npy',points)
 
-    rgb_fp_p = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_p.im,vessel_mA2.fp_p.image_mask)
-    rgb_fp_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_f.im,vessel_mA2.fp_f.image_mask)
-    rgb_fs_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_f.im,vessel_mA2.fs_f.image_mask) 
-    rgb_fs_s = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_s.im,vessel_mA2.fs_s.image_mask) 
-    rgb_ap_p = calculate_rgb_matrix_for_BEW(vessel_mA2.ap_p.im,vessel_mA2.ap_p.image_mask)
-    rgb_ap_a = calculate_rgb_matrix_for_BEW(vessel_mA2.ap_a.im,vessel_mA2.ap_a.image_mask)
-    rgb_as_a = calculate_rgb_matrix_for_BEW(vessel_mA2.as_a.im,vessel_mA2.as_a.image_mask)
-    rgb_as_s = calculate_rgb_matrix_for_BEW(vessel_mA2.as_s.im,vessel_mA2.as_s.image_mask)
+    rgb_fp_p,time_fp_p = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_p.im,vessel_mA2.fp_p.image_mask)
+    rgb_fp_f,time_fp_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fp_f.im,vessel_mA2.fp_f.image_mask)
+    rgb_fs_f,time_fs_f = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_f.im,vessel_mA2.fs_f.image_mask) 
+    rgb_fs_s,time_fs_s = calculate_rgb_matrix_for_BEW(vessel_mA2.fs_s.im,vessel_mA2.fs_s.image_mask) 
+    rgb_ap_p,time_ap_p = calculate_rgb_matrix_for_BEW(vessel_mA2.ap_p.im,vessel_mA2.ap_p.image_mask)
+    rgb_ap_a,time_ap_a = calculate_rgb_matrix_for_BEW(vessel_mA2.ap_a.im,vessel_mA2.ap_a.image_mask)
+    rgb_as_a,time_as_a = calculate_rgb_matrix_for_BEW(vessel_mA2.as_a.im,vessel_mA2.as_a.image_mask)
+    rgb_as_s,time_as_s = calculate_rgb_matrix_for_BEW(vessel_mA2.as_s.im,vessel_mA2.as_s.image_mask)
 
     rgb = np.vstack((rgb_fp_p,
                      rgb_fp_f,
@@ -100,6 +100,15 @@ def make_BEW(vessel_mA2: mA2):
                      rgb_as_a,
                      rgb_as_s,
                      vessel_mA2.black_pixel_rgb))
+    time_all_cameras = np.vstack((time_fp_p,
+                     time_fp_f,
+                     time_fs_f, 
+                     time_fs_s, 
+                     time_ap_p, 
+                     time_ap_a,
+                     time_as_a,
+                     time_as_s))
+                     
 
     # np.save('rgb.npy',rgb)
     # # Delaunay 1
@@ -158,7 +167,7 @@ def make_BEW(vessel_mA2: mA2):
     im = np.dstack((valuesi_r,valuesi_g,valuesi_b))
     end = time.time()
     print('Time: ' + str(end-start))
-    return im
+    return im, time_all_cameras
 
 
     # Griddata
@@ -172,6 +181,9 @@ def make_BEW(vessel_mA2: mA2):
 
 
 def init_mA2():
+    # print(np.__version__) # 1.23.2
+    # print(np.getbufsize()) # 8192
+    # np.setbufsize(32768)
     # print('Cores:'+str(multiprocessing.cpu_count())) = 12
     # print(scipy.__version__) 1.9.1
     # topic_names = ['/rgb_cam_fp_p/image_raw',
@@ -196,6 +208,8 @@ def init_mA2():
 
 
 def main():
+    
+    
     vessel_mA2 = init_mA2()
     vessel_mA2.find_triangle_between_each_cameras()
 
@@ -250,7 +264,7 @@ def main():
 
     # writer = cv2.VideoWriter(video_file_path, fourcc, 5, (BEW_IMAGE_WIDTH, BEW_IMAGE_HEIGHT))
 
-
+    time_all_short_long = np.array([[0,0,0]])
     # create reader instance and open for reading
     with Reader(file_path) as reader:
 
@@ -298,7 +312,8 @@ def main():
             
             if (image_count %8 == 0 and image_count > 20): # 11500 for image for thesis
                 print('Making BEW')
-                img_bew = make_BEW(vessel_mA2)
+                img_bew ,time_arr= make_BEW(vessel_mA2)
+                time_all_short_long = np.vstack((time_all_short_long, time_arr))
                 # writer.write(cv2.cvtColor(img_bew, cv2.COLOR_BGR2RGB))
                 frame = frame + 1
                 
@@ -312,8 +327,11 @@ def main():
                 # plt.figure('BEW')
                 # plt.imshow(img_bew)
                 # plt.show()
-            if (frame >=10):
+            if (frame >=500):
                 break
+    time_all_short_long = np.delete(time_all_short_long,0,0)
+    np.save('time_all_short_long.npy', time_all_short_long)
+    print('finito')
     # writer.release()         
             
 
