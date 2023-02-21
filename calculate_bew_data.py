@@ -338,8 +338,11 @@ def make_final_mask_and_pixel_pos(im_mask, im_pos_pixel, left_triangle, right_tr
 def calculate_rgb_matrix_for_BEW(img_undistorted: np.array, image_mask: np.array):
     im_rgb = img_undistorted[ROW_CUTOFF:,:] #(498, 1224, 3)
     im_rgb_T = np.reshape(im_rgb,(np.shape(image_mask)[0], 3)) #(609552, 3)
-    im_rgb_true = im_rgb_T[np.all(image_mask==True, axis=1)] # (499350, 3)
     
-    return im_rgb_true
+    im_rgb_true = im_rgb_T[image_mask==True]
+    im_rgb_true = np.reshape(im_rgb_true,(3,-1),order='F')
+    im_rgb_true_T= im_rgb_true.transpose()
+    
+    return im_rgb_true_T
 
 
