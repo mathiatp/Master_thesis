@@ -33,6 +33,10 @@ class mA2:
         # self._delaunay = self.init_delaunay()
 
     
+    def set_vtx(self, vtx):
+        self._vtx = vtx
+    def set_wts(self, wts):
+        self._wts = wts
 
     def init_delaunay(self):
         # points_fp_f, _ = calculate_BEW_points_and_mask(self.fp_f.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fp_f.png'))

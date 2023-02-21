@@ -83,6 +83,8 @@ def make_BEW(vessel_mA2: mA2):
         vtx, wts = interp_weights(xy, uv)
         np.save('vtx.npy', vtx)
         np.save('wts.npy', wts)
+        vessel_mA2.set_vtx(vtx)
+        vessel_mA2.set_wts(wts)
         
     
     vtx = vessel_mA2.vtx
@@ -259,10 +261,10 @@ def main():
                 # plt.imsave('BEW_step_1_restructure_mask.png', img_bew)
                 # plt.figure('Img_undistorted_as_a')
                 # plt.imshow(vessel_mA2.as_a.im)
-                # plt.figure('BEW')
-                # plt.imshow(img_bew)
-                # plt.show()
-            if (frame >=100):
+                plt.figure('BEW')
+                plt.imshow(img_bew)
+                plt.show()
+            if (frame >=10):
                 break
     # writer.release()         
             
@@ -277,4 +279,4 @@ if __name__ == '__main__':
     with cProfile.Profile() as pr:
         main()
     stats = pstats.Stats(pr)
-    stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_100_frame_1500x1500px_step_3_4_restructure.prof')
+    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_100_frame_1500x1500px_step_3_5_restructur.prof')
