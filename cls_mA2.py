@@ -1,5 +1,6 @@
 from calculate_bew_data import calculate_BEW_points_and_mask, calculate_BEW_points_and_rgb_for_interpolation
 from cls_Camera import Camera
+from file_handling import try_load_vtx_wts
 from get_black_fill_pos_rgb import get_black_pixel_pos_and_rgb
 import numpy as np
 from scipy.spatial import Delaunay
@@ -28,7 +29,10 @@ class mA2:
         self._as_a = camera_as_f
         self._as_s = camera_as_s
         self._black_pixel_pos, self._black_pixel_rgb = get_black_pixel_pos_and_rgb()
+        self._vtx, self._wts  = try_load_vtx_wts()
         # self._delaunay = self.init_delaunay()
+
+    
 
     def init_delaunay(self):
         # points_fp_f, _ = calculate_BEW_points_and_mask(self.fp_f.wall_mask, cv2.imread('Images/Delaunay_init_images/delaunay_init_im_fp_f.png'))
@@ -185,6 +189,12 @@ class mA2:
     # @property
     # def delaunay(self):
     #     return self._delaunay
+    @property
+    def vtx(self):
+        return self._vtx
+    @property
+    def wts(self):
+        return self._wts
     @property
     def black_pixel_pos(self):
         return self._black_pixel_pos

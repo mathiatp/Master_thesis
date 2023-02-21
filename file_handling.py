@@ -25,3 +25,11 @@ def camera_name_calib_yaml_to_K_D(camera_name: str):
     K = K.reshape(data_dict['camera_matrix']['rows'], data_dict['camera_matrix']['cols'])
     D = np.array([data_dict['distortion_coefficients']['data']])
     return K, D
+
+def try_load_vtx_wts():
+    try:
+        vtx = np.load('vtx.npy')
+        wts = np.load('wts.npy')
+        return vtx, wts
+    except OSError:
+        return None, None

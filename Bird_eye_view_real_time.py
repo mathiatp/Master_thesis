@@ -132,17 +132,17 @@ def make_BEW(vessel_mA2: mA2):
     uv[:,0]=grid_y.flatten()
     uv[:,1]=grid_x.flatten()
     values = rgb
-    # if ((vessel_mA2.vtx is None) or (vessel_mA2.wts is None)):
-    # # Computed once and for all !
-        # vtx, wts = interp_weights(xy, uv)
-        # np.save('vtx.npy', vtx)
-        # np.save('wts.npy', wts)
+    
+    if ((vessel_mA2.vtx is None) or (vessel_mA2.wts is None)):
+    # Computed once and for all !
+        vtx, wts = interp_weights(xy, uv)
+        np.save('vtx.npy', vtx)
+        np.save('wts.npy', wts)
         
     
-    vtx = np.load('vtx.npy')
-    wts = np.load('wts.npy')
-    # et = time.time()
-    # print('np.load vtx and wts: '+ str(et-st))
+    vtx = vessel_mA2.vtx
+    wts = vessel_mA2.wts
+    
     start = time.time()
     valuesi_r=interpolate(values[:,0].flatten(), vtx, wts)
     valuesi_g=interpolate(values[:,1].flatten(), vtx, wts)
@@ -160,7 +160,7 @@ def make_BEW(vessel_mA2: mA2):
  
     im = np.dstack((valuesi_r,valuesi_g,valuesi_b))
     end = time.time()
-    print('Time: ' + str(end-start))
+    print('Time: ' + str((end-start)*1000) + ' ms')
     return im
 
 
@@ -312,10 +312,10 @@ def main():
                 # plt.imsave('BEW_step_1_restructure_mask.png', img_bew)
                 # plt.figure('Img_undistorted_as_a')
                 # plt.imshow(vessel_mA2.as_a.im)
-                plt.figure('BEW')
-                plt.imshow(img_bew)
-                plt.show()
-            if (frame >=10):
+                # plt.figure('BEW')
+                # plt.imshow(img_bew)
+                # plt.show()
+            if (frame >=100):
                 break
     # writer.release()         
             
@@ -330,4 +330,4 @@ if __name__ == '__main__':
     with cProfile.Profile() as pr:
         main()
     stats = pstats.Stats(pr)
-    # stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_100_frame_1500x1500px_step_3_2_restructur.prof')
+    stats.dump_stats(filename='./Profiler_stats/Ros2/main_func_100_frame_1500x1500px_step_3_3_restructure.prof')
