@@ -114,12 +114,12 @@ def make_BEW(vessel_mA2: mA2):
 
 
     # Griddata
-    # grid_z0 = griddata(points, rgb, (grid_x, grid_y), method='nearest')
+    # grid_z0 = griddata(points, rgb, (grid_x, grid_y), method='linear')
     # grid_z0[np.where(np.isnan(grid_z0))] = 0
     # grid_z0 = grid_z0[:,:,:].astype(np.uint8)
     # end = time.time()
     # print('Time: ' + str(end-start))
-    # return grid_z0
+    # return grid_z0, im
 
 
 
@@ -196,11 +196,11 @@ def main():
                    '/rgb_cam_as_s/image_raw']
     image_count = 0
     frame = 0
-    # video_file_path = "./Video/BEW_restrcture_step3_1st.mp4"
-    # fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-    # fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    video_file_path = "./Video/BEW_restrcture_step3_4.mp4"
+    fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
-    # writer = cv2.VideoWriter(video_file_path, fourcc, 5, (BEW_IMAGE_WIDTH, BEW_IMAGE_HEIGHT))
+    writer = cv2.VideoWriter(video_file_path, fourcc, 5, (BEW_IMAGE_WIDTH, BEW_IMAGE_HEIGHT))
 
 
     # create reader instance and open for reading
@@ -251,7 +251,7 @@ def main():
             if (image_count %8 == 0 and image_count > 20): # 11500 for image for thesis
                 print('Making BEW')
                 img_bew = make_BEW(vessel_mA2)
-                # writer.write(cv2.cvtColor(img_bew, cv2.COLOR_BGR2RGB))
+                writer.write(cv2.cvtColor(img_bew, cv2.COLOR_BGR2RGB))
                 frame = frame + 1
                 
 
@@ -261,12 +261,15 @@ def main():
                 # plt.imsave('BEW_step_1_restructure_mask.png', img_bew)
                 # plt.figure('Img_undistorted_as_a')
                 # plt.imshow(vessel_mA2.as_a.im)
-                plt.figure('BEW')
-                plt.imshow(img_bew)
-                plt.show()
-            if (frame >=10):
-                break
-    # writer.release()         
+                # plt.figure('BEW')
+                # plt.imshow(img_bew)
+                # plt.show()
+                # # plt.figure('BEW_grid')
+                # # plt.imshow(grid_im)
+                # # plt.show()
+            # if (frame >=10):
+            #     break
+    writer.release()         
             
 
 

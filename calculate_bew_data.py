@@ -52,15 +52,15 @@ def georeference_point_eq(intrinsic_matrix: np.ndarray,
 def interp_weights(xy, uv,d=2):
     tri = Delaunay(xy)
     simplex = tri.find_simplex(uv)
-    vertices = np.take(tri.simplices, simplex, axis=0)
-    temp = np.take(tri.transform, simplex, axis=0)
+    vertices = np.take(tri.simplices, simplex, axis=0) #TODO can np.take be changed to adv. array indexing?
+    temp = np.take(tri.transform, simplex, axis=0)     #TODO can np.take be changed to adv. array indexing?
     delta = uv - temp[:, d]
     bary = np.einsum('njk,nk->nj', temp[:, :d, :], delta)
     return vertices, np.hstack((bary, 1 - bary.sum(axis=1, keepdims=True)))
 
 def interpolate(values, vtx, wts):
     values_id = values[vtx]
-    return np.einsum('nj,nj->n', values_id, wts)
+    return np.einsum('nj,nj->n', values_id, wts) tex
 
 def calculate_im_pos(height, width, K, camera_rotation, camera_translation, name):
     try:
